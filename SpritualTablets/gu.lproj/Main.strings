@@ -1,0 +1,45 @@
+
+/* Class = "UILabel"; text = "WEEKLY QUOTE"; ObjectID = "1P7-Le-Nxb"; */
+"1P7-Le-Nxb.text" = "WEEKLY QUOTE";
+
+/* Class = "UIButton"; normalTitle = "हिन्दी"; ObjectID = "2Qa-pd-xbj"; */
+"2Qa-pd-xbj.normalTitle" = "हिन्दी";
+
+/* Class = "UIButton"; normalTitle = "मराठी"; ObjectID = "Al9-As-dax"; */
+"Al9-As-dax.normalTitle" = "मराठी";
+
+/* Class = "UILabel"; text = "WEEKLY QUOTE"; ObjectID = "BZL-pX-V5E"; */
+"BZL-pX-V5E.text" = "WEEKLY QUOTE";
+
+/* Class = "UIButton"; normalTitle = "ગુજરાતી"; ObjectID = "N4x-eA-B3I"; */
+"N4x-eA-B3I.normalTitle" = "ગુજરાતી";
+
+/* Class = "UIViewController"; title = "DashboardVC"; ObjectID = "OAG-i9-Pu2"; */
+"OAG-i9-Pu2.title" = "DashboardVC";
+
+/* Class = "UILabel"; text = "CONTACT VIA WHATSAPP"; ObjectID = "XLE-yL-J4H"; */
+"XLE-yL-J4H.text" = "CONTACT VIA WHATSAPP";
+
+/* Class = "UIButton"; normalTitle = "ಕನ್ನಡ"; ObjectID = "Zlj-JW-r3Y"; */
+"Zlj-JW-r3Y.normalTitle" = "ಕನ್ನಡ";
+
+/* Class = "UILabel"; text = "Select Language"; ObjectID = "egO-yK-hIe"; */
+"egO-yK-hIe.text" = "Select Language";
+
+/* Class = "UILabel"; text = "books may vary from language to language"; ObjectID = "h4K-fT-K7T"; */
+"h4K-fT-K7T.text" = "books may vary from language to language";
+
+/* Class = "UILabel"; text = "CONTACT VIA WHATSAPP"; ObjectID = "r7t-kA-lBz"; */
+"r7t-kA-lBz.text" = "CONTACT VIA WHATSAPP";
+
+/* Class = "UILabel"; text = "SHARE APP"; ObjectID = "rfs-QQ-1lk"; */
+"rfs-QQ-1lk.text" = "SHARE APP";
+
+/* Class = "UILabel"; text = "SHARE APP"; ObjectID = "rpI-EX-8or"; */
+"rpI-EX-8or.text" = "SHARE APP";
+
+/* Class = "UIButton"; normalTitle = "CANCEL"; ObjectID = "tqU-4E-p8K"; */
+"tqU-4E-p8K.normalTitle" = "CANCEL";
+
+/* Class = "UIButton"; normalTitle = "తెలుగు"; ObjectID = "zpD-gt-fvz"; Note = "Localizable ()"; */
+"zpD-gt-fvz.normalTitle" = "తెలుగు";

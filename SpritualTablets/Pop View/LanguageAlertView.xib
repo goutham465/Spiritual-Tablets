@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LanguageAlertView" customModule="SpritualTablets" customModuleProvider="target">
+            <connections>
+                <outlet property="alertWidthConstraint" destination="0Aj-LF-FO5" id="B0p-Eg-TK6"/>
+                <outlet property="btnCancel" destination="fM5-6n-9SW" id="I27-EQ-p92"/>
+                <outlet property="btnGujarati" destination="O5t-et-aMd" id="3Ga-xd-pDS"/>
+                <outlet property="btnHindi" destination="Age-cJ-zDa" id="sNq-K9-syK"/>
+                <outlet property="btnKannada" destination="gbo-1i-jh8" id="inh-1j-HAw"/>
+                <outlet property="btnMarati" destination="Ow0-9p-xRm" id="Gj9-J2-4Ju"/>
+                <outlet property="btnTelugu" destination="xMa-VC-nDE" id="T9q-fq-9rN"/>
+                <outlet property="lblAlertText" destination="c50-Yc-m0i" id="Z75-RR-QR9"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="ikd-YM-sSy"/>
+                <outlet property="viewAlert" destination="FZv-c5-12m" id="SAX-ag-F0K"/>
+                <outlet property="viewAlertBtns" destination="xgj-QN-UdJ" id="bzx-6j-rRg"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FZv-c5-12m">
+                    <rect key="frame" x="37.5" y="69" width="300" height="518"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="books may vary from language to language" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c50-Yc-m0i">
+                            <rect key="frame" x="20" y="50" width="260" height="40"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Language" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kza-zs-WHX">
+                            <rect key="frame" x="86" y="15" width="128" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="02c-en-8Z8"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xgj-QN-UdJ">
+                            <rect key="frame" x="0.0" y="471" width="300" height="47"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fM5-6n-9SW">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="47"/>
+                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                    <state key="normal" title="CANCEL">
+                                        <color key="titleColor" systemColor="systemPinkColor"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="btnCancelTappedWithSender:" destination="-1" eventType="touchUpInside" id="uYo-SR-JN5"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" red="0.91710788009999999" green="0.94114500280000002" blue="0.93713462349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="fM5-6n-9SW" secondAttribute="trailing" id="74c-kg-zRF"/>
+                                <constraint firstItem="fM5-6n-9SW" firstAttribute="top" secondItem="xgj-QN-UdJ" secondAttribute="top" id="IVo-9q-aGp"/>
+                                <constraint firstAttribute="height" constant="47" id="Vh7-KK-DL6"/>
+                                <constraint firstAttribute="bottom" secondItem="fM5-6n-9SW" secondAttribute="bottom" id="jND-c6-dop"/>
+                                <constraint firstItem="fM5-6n-9SW" firstAttribute="leading" secondItem="xgj-QN-UdJ" secondAttribute="leading" id="vS5-Tq-712"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="4"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="38" translatesAutoresizingMaskIntoConstraints="NO" id="k86-p0-CRK">
+                            <rect key="frame" x="20" y="118" width="260" height="322"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xMa-VC-nDE">
+                                    <rect key="frame" x="0.0" y="0.0" width="260" height="34"/>
+                                    <color key="backgroundColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="0.88541589190000003" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                    <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="తెలుగు">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <state key="selected" image="radio_on"/>
+                                    <attributedString key="userComments">
+                                        <fragment content="Localizable ()"/>
+                                    </attributedString>
+                                    <connections>
+                                        <action selector="actionTelugu:" destination="-1" eventType="touchUpInside" id="jVe-3c-f16"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Age-cJ-zDa">
+                                    <rect key="frame" x="0.0" y="72" width="260" height="34"/>
+                                    <color key="backgroundColor" red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="0.88541589193786219" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                    <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="हिन्दी">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <state key="selected" image="radio_on"/>
+                                    <connections>
+                                        <action selector="actionHindi:" destination="-1" eventType="touchUpInside" id="AzJ-WC-X24"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gbo-1i-jh8">
+                                    <rect key="frame" x="0.0" y="144" width="260" height="34"/>
+                                    <color key="backgroundColor" red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="0.88541589193786219" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                    <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="ಕನ್ನಡ">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <state key="selected" image="radio_on"/>
+                                    <connections>
+                                        <action selector="actionKannada:" destination="-1" eventType="touchUpInside" id="DEn-Er-pQb"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ow0-9p-xRm">
+                                    <rect key="frame" x="0.0" y="216" width="260" height="34"/>
+                                    <color key="backgroundColor" red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="0.88541589193786219" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                    <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="मराठी">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <state key="selected" image="radio_on"/>
+                                    <connections>
+                                        <action selector="actionMarathi:" destination="-1" eventType="touchUpInside" id="7p5-nD-Cnz"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O5t-et-aMd">
+                                    <rect key="frame" x="0.0" y="288" width="260" height="34"/>
+                                    <color key="backgroundColor" red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="0.88541589193786219" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                    <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="ગુજરાતી">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <state key="selected" image="radio_on"/>
+                                    <connections>
+                                        <action selector="actionGujarati:" destination="-1" eventType="touchUpInside" id="b9I-vR-fWe"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="300" id="0Aj-LF-FO5"/>
+                        <constraint firstItem="k86-p0-CRK" firstAttribute="top" secondItem="c50-Yc-m0i" secondAttribute="bottom" constant="28" id="7Ij-eY-AJf"/>
+                        <constraint firstItem="c50-Yc-m0i" firstAttribute="leading" secondItem="FZv-c5-12m" secondAttribute="leading" constant="20" symbolic="YES" id="JUP-qW-PrB"/>
+                        <constraint firstAttribute="trailing" secondItem="c50-Yc-m0i" secondAttribute="trailing" constant="20" id="KxA-UO-OGC"/>
+                        <constraint firstItem="c50-Yc-m0i" firstAttribute="top" secondItem="Kza-zs-WHX" secondAttribute="bottom" constant="14" id="R7b-f0-7LB"/>
+                        <constraint firstItem="Kza-zs-WHX" firstAttribute="centerX" secondItem="FZv-c5-12m" secondAttribute="centerX" id="VGw-g1-yWd"/>
+                        <constraint firstItem="k86-p0-CRK" firstAttribute="leading" secondItem="FZv-c5-12m" secondAttribute="leading" constant="20" symbolic="YES" id="Xhv-qG-YN1"/>
+                        <constraint firstItem="xgj-QN-UdJ" firstAttribute="leading" secondItem="FZv-c5-12m" secondAttribute="leading" id="aTZ-1u-HQg"/>
+                        <constraint firstAttribute="trailing" secondItem="k86-p0-CRK" secondAttribute="trailing" constant="20" id="aZL-Zo-AcJ"/>
+                        <constraint firstAttribute="trailing" secondItem="xgj-QN-UdJ" secondAttribute="trailing" id="e6L-Gw-AEB"/>
+                        <constraint firstItem="Kza-zs-WHX" firstAttribute="top" secondItem="FZv-c5-12m" secondAttribute="top" constant="15" id="siI-x7-fYb"/>
+                        <constraint firstItem="xgj-QN-UdJ" firstAttribute="top" secondItem="k86-p0-CRK" secondAttribute="bottom" constant="31" id="uQT-rZ-LwA"/>
+                        <constraint firstAttribute="bottom" secondItem="xgj-QN-UdJ" secondAttribute="bottom" id="v3x-dB-0eq"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="FZv-c5-12m" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="-5.5" identifier="alertview-center-y" id="0pQ-C1-tAb"/>
+                <constraint firstItem="FZv-c5-12m" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="jK3-PO-Hl1"/>
+            </constraints>
+            <point key="canvasLocation" x="-76" y="-102.09895052473765"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="radio_on" width="24" height="24"/>
+        <systemColor name="systemPinkColor">
+            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

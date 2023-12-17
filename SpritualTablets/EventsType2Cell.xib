@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="EventsType2Cell" rowHeight="468" id="JgG-Ac-Boz" customClass="EventsType2Cell" customModule="SpritualTablets" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="468"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JgG-Ac-Boz" id="6ay-mB-zaz">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="468"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Va-bd-Y32" customClass="CardView" customModule="SpritualTablets" customModuleProvider="target">
+                        <rect key="frame" x="10" y="19" width="394" height="424"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Name:" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A4q-8X-ce0">
+                                <rect key="frame" x="14.999999999999993" y="20" width="116.33333333333331" height="18.666666666666671"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="18.666666666666671" id="unI-Yf-d5y"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Kefa-Regular" family="Kefa" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="With Swift 2, Apple has changed global functions to " lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lup-yU-lSP">
+                                <rect key="frame" x="15" y="50" width="354" height="46.333333333333343"/>
+                                <fontDescription key="fontDescription" name="Kefa-Regular" family="Kefa" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Description:" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3qL-i4-ouX">
+                                <rect key="frame" x="15" y="116.33333333333333" width="167.66666666666666" height="23.333333333333329"/>
+                                <fontDescription key="fontDescription" name="Kefa-Regular" family="Kefa" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="With Swift 2, Apple has otocol. Thus the new syntax is" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UTG-R9-Ir5">
+                                <rect key="frame" x="15" y="159" width="335.66666666666669" height="46.333333333333343"/>
+                                <fontDescription key="fontDescription" name="Kefa-Regular" family="Kefa" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Timing:" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fMB-ik-xit">
+                                <rect key="frame" x="15.000000000000007" y="228" width="127.66666666666669" height="23.333333333333343"/>
+                                <fontDescription key="fontDescription" name="Kefa-Regular" family="Kefa" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="With Swift 2, Apple has otocol. Thus the new syntax is" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="06D-9H-bGl">
+                                <rect key="frame" x="15" y="259" width="335.66666666666669" height="46.333333333333314"/>
+                                <fontDescription key="fontDescription" name="Kefa-Regular" family="Kefa" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Link:" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pmf-vU-eoP">
+                                <rect key="frame" x="14.999999999999993" y="313" width="103.33333333333331" height="23.333333333333314"/>
+                                <fontDescription key="fontDescription" name="Kefa-Regular" family="Kefa" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bzb-WL-PHg">
+                                <rect key="frame" x="15" y="344" width="335.66666666666669" height="34"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="3qL-i4-ouX" firstAttribute="top" relation="greaterThanOrEqual" secondItem="lup-yU-lSP" secondAttribute="bottom" constant="20" id="19x-qi-hDr"/>
+                            <constraint firstItem="pmf-vU-eoP" firstAttribute="leading" secondItem="06D-9H-bGl" secondAttribute="leading" id="2HV-iu-xFG"/>
+                            <constraint firstItem="lup-yU-lSP" firstAttribute="leading" secondItem="1Va-bd-Y32" secondAttribute="leading" constant="15" id="7jF-hn-fNs"/>
+                            <constraint firstItem="bzb-WL-PHg" firstAttribute="trailing" secondItem="06D-9H-bGl" secondAttribute="trailing" id="FsW-xW-FBZ"/>
+                            <constraint firstItem="bzb-WL-PHg" firstAttribute="top" secondItem="pmf-vU-eoP" secondAttribute="bottom" constant="7.6666666666666856" id="J0m-lm-ety"/>
+                            <constraint firstItem="pmf-vU-eoP" firstAttribute="top" secondItem="06D-9H-bGl" secondAttribute="bottom" constant="7.6666666666666856" id="N0Z-aA-rw6"/>
+                            <constraint firstItem="3qL-i4-ouX" firstAttribute="top" secondItem="lup-yU-lSP" secondAttribute="bottom" constant="20" id="PwN-qy-59X"/>
+                            <constraint firstItem="fMB-ik-xit" firstAttribute="leading" secondItem="UTG-R9-Ir5" secondAttribute="leading" id="R5O-2U-9OM"/>
+                            <constraint firstItem="bzb-WL-PHg" firstAttribute="leading" secondItem="pmf-vU-eoP" secondAttribute="leading" id="SKT-Tm-Zij"/>
+                            <constraint firstItem="A4q-8X-ce0" firstAttribute="leading" secondItem="1Va-bd-Y32" secondAttribute="leading" constant="15" id="VLg-NW-jwQ"/>
+                            <constraint firstItem="fMB-ik-xit" firstAttribute="top" secondItem="UTG-R9-Ir5" secondAttribute="bottom" constant="22.666666666666657" id="Y3Y-dq-uSY"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="UTG-R9-Ir5" secondAttribute="trailing" constant="25" id="akN-Se-vUn"/>
+                            <constraint firstItem="06D-9H-bGl" firstAttribute="leading" secondItem="fMB-ik-xit" secondAttribute="leading" id="bfE-Qg-fYD"/>
+                            <constraint firstItem="lup-yU-lSP" firstAttribute="top" secondItem="1Va-bd-Y32" secondAttribute="top" constant="50" id="dzf-gg-s1p"/>
+                            <constraint firstItem="06D-9H-bGl" firstAttribute="top" secondItem="fMB-ik-xit" secondAttribute="bottom" constant="7.6666666666666572" id="e9z-xk-LBW"/>
+                            <constraint firstItem="A4q-8X-ce0" firstAttribute="top" relation="greaterThanOrEqual" secondItem="1Va-bd-Y32" secondAttribute="top" constant="20" symbolic="YES" id="fCV-aE-Ylg"/>
+                            <constraint firstItem="lup-yU-lSP" firstAttribute="top" relation="greaterThanOrEqual" secondItem="A4q-8X-ce0" secondAttribute="bottom" constant="11.33" id="hZ3-DE-U7p"/>
+                            <constraint firstItem="UTG-R9-Ir5" firstAttribute="top" secondItem="3qL-i4-ouX" secondAttribute="bottom" constant="19.329999999999998" id="mt6-LJ-xMX"/>
+                            <constraint firstItem="lup-yU-lSP" firstAttribute="top" secondItem="A4q-8X-ce0" secondAttribute="bottom" constant="11.333333333333329" id="nXp-Q4-vsz"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lup-yU-lSP" secondAttribute="trailing" constant="25" id="opP-RL-KpT"/>
+                            <constraint firstItem="3qL-i4-ouX" firstAttribute="leading" secondItem="1Va-bd-Y32" secondAttribute="leading" constant="15" id="pkQ-Vs-xs7"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="06D-9H-bGl" secondAttribute="trailing" constant="25" id="seh-AV-d6H"/>
+                            <constraint firstItem="UTG-R9-Ir5" firstAttribute="leading" secondItem="1Va-bd-Y32" secondAttribute="leading" constant="15" id="y3x-zf-0Na"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="1Va-bd-Y32" secondAttribute="trailing" constant="10" id="OR9-oX-oOK"/>
+                    <constraint firstItem="1Va-bd-Y32" firstAttribute="top" secondItem="6ay-mB-zaz" secondAttribute="top" constant="19" id="iCa-7h-nMJ"/>
+                    <constraint firstItem="1Va-bd-Y32" firstAttribute="leading" secondItem="6ay-mB-zaz" secondAttribute="leading" constant="10" id="oxY-GS-NQg"/>
+                    <constraint firstAttribute="bottom" secondItem="1Va-bd-Y32" secondAttribute="bottom" constant="25" id="szN-E1-E4X"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="CQH-l6-GXv"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="btnEventLink" destination="bzb-WL-PHg" id="5h7-aH-g80"/>
+                <outlet property="lblEventDescription" destination="UTG-R9-Ir5" id="aJb-ms-PpC"/>
+                <outlet property="lblEventName" destination="lup-yU-lSP" id="Kkx-d2-UOT"/>
+                <outlet property="lblEventTiming" destination="06D-9H-bGl" id="B95-Hp-YAs"/>
+                <outlet property="viewBorder" destination="1Va-bd-Y32" id="BAk-ag-rNV"/>
+            </connections>
+            <point key="canvasLocation" x="-143.07692307692307" y="140.04739336492889"/>
+        </tableViewCell>
+    </objects>
+</document>
