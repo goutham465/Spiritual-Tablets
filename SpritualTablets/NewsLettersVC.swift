@@ -51,12 +51,27 @@ class NewsLettersVC: UIViewController {
         })
 
     }
+    func savePdf(urlString:String, fileName:String) {
+        DispatchQueue.main.async {
+            let url = URL(string: urlString)
+            let pdfData = try? Data.init(contentsOf: url!)
+            let resourceDocPath = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)).last! as URL
+            let pdfNameFromUrl = "Spritiual Tablets-\(fileName).pdf"
+            let actualPath = resourceDocPath.appendingPathComponent(pdfNameFromUrl)
+            do {
+                try pdfData?.write(to: actualPath, options: .atomic)
+                print("pdf successfully saved!")
+            } catch {
+                print("Pdf could not be saved")
+            }
+        }
+    }
  
 }
 extension NewsLettersVC: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.newsLettersArray.count
+        return self.labelNamesArray.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -64,7 +79,7 @@ extension NewsLettersVC: UICollectionViewDataSource {
         var cell = UICollectionViewCell()
         if let customCell = collectionView.dequeueReusableCell(withReuseIdentifier: "DashboardeCollectionCell", for: indexPath) as? DashboardeCollectionCell {
 
-            customCell.labelName.text = newsLettersArray[indexPath.row].uppercased()
+            customCell.labelName.text = labelNamesArray[indexPath.row].uppercased()
             customCell.cardView.layer.cornerRadius = 4
             customCell.cardView.layer.borderWidth = 2
             customCell.cardView.layer.borderColor = UIColor.white.cgColor
@@ -84,6 +99,16 @@ extension NewsLettersVC: UICollectionViewDataSource {
 }
 extension NewsLettersVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.item == 0 {
+            let url = URL(string: "https://pssm.createsend.com/t/ViewEmail/j/BC55DC689591CD19/C67FD2F38AC4859C/")
+            UIApplication.shared.open(url!, options: [:])
+            savePdf(urlString: "https://pssm.createsend.com/t/ViewEmail/j/BC55DC689591CD19/C67FD2F38AC4859C/", fileName: "August2022")
+        }
+        if indexPath.item == 1 {
+            let url = URL(string: "http://pssm.cmail20.com/t/ViewEmail/j/5F154942F8F1C9AF")
+            UIApplication.shared.open(url!, options: [:])
+            savePdf(urlString: "http://pssm.cmail20.com/t/ViewEmail/j/5F154942F8F1C9AF", fileName: "Septmeber2022")
+        }
         if indexPath.item == 2 {
             let url = URL(string: "https://pssm.createsend.com/t/ViewEmail/j/BC55DC689591CD19/C67FD2F38AC4859C/")
             UIApplication.shared.open(url!, options: [:])

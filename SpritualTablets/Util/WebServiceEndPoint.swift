@@ -40,10 +40,6 @@ public struct GetDataKey {
     // TO DO APIS
 
     static let getOrderDetails = "get-order-details.php/"  // needs to show
-    //req object.put("user_id", App.userProfile.id);
-   // object.put("seller_id", sellerId);
-  //  object.put("order_id", orderId);
-
     static let updateOrderAddress = "update-order-address.php/"
     static let addCart = "add-cart.php/"
     static let getAdressList = "get_address_list.php/"
@@ -51,37 +47,5 @@ public struct GetDataKey {
     static let getCartList = "get_cart_list.php/"
     static let orderAvailibility = "order_availability.php/"
 
-    // Regquest object.put("user_id", App.userProfile.id);
-//    object.put("seller_id", sellerId);
-//    object.put("order_id", orderId);
-//    object.put("delevery_address", dlvr_address.getText().toString());
-//    object.put("delevery_time", selected_timeslot);
-
-   // after Delievery scrren need sto updated address
-
 }
-// iprismacademy.com/api-firebase/get-order-details.php
-/*
- {
-     "user_id":"10",
-     "seller_id":"2",
-     "order_id":"1"
- }
- */
-//iprismacademy.com/api-firebase/get_address_list.php
 
-//get_cart_list.php
-
-// inside updadate address API  succes  addcart api calls and member view VC (get cart API)
-// [23:52, 29/11/2022] +91 98668 95180: iprismacademy.com/api-firebase/add-cart.php
-//[23:52, 29/11/2022] +91 98668 95180: method : POST
-//[23:52, 29/11/2022] +91 98668 95180: Request :
-//{
-//     "user_id":"10",
-//    "seller_id":"2",
-//    "order_id":"1"
-//}
-//[23:53, 29/11/2022] +91 98668 95180: {
-//    "error": true,
-//    "message": "Item already exist!"
-//}

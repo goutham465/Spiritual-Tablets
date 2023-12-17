@@ -13,6 +13,7 @@ class ReviewsTblCell: UITableViewCell {
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var lblComments: UILabel!
     @IBOutlet weak var viewBorder: UIView!
+    @IBOutlet weak var dateLbl: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

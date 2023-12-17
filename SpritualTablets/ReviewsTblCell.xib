@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -56,12 +55,24 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FDW-FO-8oA">
+                                <rect key="frame" x="16" y="175" width="302" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="KeD-5r-MX8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SavoyeLetPlain" family="Savoye LET" pointSize="32"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="FDW-FO-8oA" firstAttribute="leading" secondItem="4FU-4o-jO3" secondAttribute="leading" id="8AF-Fd-r1b"/>
+                            <constraint firstItem="FDW-FO-8oA" firstAttribute="top" secondItem="4FU-4o-jO3" secondAttribute="bottom" constant="34" id="AlP-74-R9r"/>
                             <constraint firstAttribute="trailing" secondItem="4FU-4o-jO3" secondAttribute="trailing" constant="17" id="KnB-It-FDd"/>
                             <constraint firstItem="gJM-jG-4wv" firstAttribute="top" secondItem="mQG-QU-q5u" secondAttribute="bottom" constant="26.666666666666657" id="PAP-b6-AHI"/>
                             <constraint firstItem="4FU-4o-jO3" firstAttribute="leading" secondItem="p7O-dz-Afp" secondAttribute="leading" constant="16" id="Q5J-rc-EaF"/>
+                            <constraint firstAttribute="trailing" secondItem="FDW-FO-8oA" secondAttribute="trailing" constant="75" id="Qvl-f9-0zb"/>
                             <constraint firstItem="gJM-jG-4wv" firstAttribute="centerX" secondItem="p7O-dz-Afp" secondAttribute="centerX" id="TtB-mj-p5q"/>
                             <constraint firstItem="4FU-4o-jO3" firstAttribute="top" secondItem="gJM-jG-4wv" secondAttribute="bottom" constant="16" id="fBI-X7-9oc"/>
                             <constraint firstItem="mQG-QU-q5u" firstAttribute="top" secondItem="p7O-dz-Afp" secondAttribute="top" constant="20" symbolic="YES" id="fm1-1i-bjt"/>
@@ -78,6 +89,7 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
+                <outlet property="dateLbl" destination="FDW-FO-8oA" id="EZe-X6-2Gu"/>
                 <outlet property="lblComments" destination="4FU-4o-jO3" id="W5u-ES-ymz"/>
                 <outlet property="lblName" destination="mQG-QU-q5u" id="Xe9-gL-QIr"/>
                 <outlet property="ratingView" destination="gJM-jG-4wv" id="Lqj-xa-GMw"/>
@@ -91,9 +103,4 @@
             <size key="intrinsicContentSize" width="220" height="40"/>
         </designable>
     </designables>
-    <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>

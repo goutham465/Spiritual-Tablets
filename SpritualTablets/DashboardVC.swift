@@ -29,6 +29,9 @@ class DashboardVC: UIViewController {
     @IBOutlet weak var videosPopView: UIView!
     @IBOutlet weak var videosViewAlert: UIView!
     
+    @IBOutlet weak var counsellingView: UIView!
+    @IBOutlet weak var counsellingAlert: UIView!
+    
     @IBOutlet var lblAlertText: UILabel?
     @IBOutlet var btnCancel: UIButton!
     @IBOutlet var viewAlertBtns: UIView!
@@ -43,9 +46,10 @@ class DashboardVC: UIViewController {
     @IBOutlet var anandhoEventBtn: UIButton!
     @IBOutlet var meditaionBtn: UIButton!
     @IBOutlet var workShopBtn: UIButton!
- 
-    var imageItemsArray = ["daily_tip", "audio", "book", "audio_book", "video", "events", "letter", "gallery", "register", "cousnelling", "donate", "admission_center", "contact_us", "about_us", "profile", "logout"]
-    var labelNamesArray = ["WEEKLY QUOTE", "MUSIC FOR MEDITATION", "BOOKS", "AUDIO BOOKS", "VIDEOS", "EVENTS", "NEWS LETTER", "GALLERY", "VOLUNTEER REGISTRATIONS", "REQUEST FOR COUNSELLING", "DONATE", "ADMISSION CENTERS", "CONTACT US", "ABOUT US", "MY PROFILE", "LOGOUT"]
+    @IBOutlet weak var zoomSessionBtnLink: UIButton!
+    var weeklyQuoteDataArray = [String]()
+    var imageItemsArray = ["daily_tip", "audio", "book", "audio_book", "video", "events", "letter", "gallery", "register", "cousnelling", "donate", "admission_center", "contact_us", "about_us", "profile", "logout", "logout"]
+    var labelNamesArray = ["WEEKLY QUOTE", "MUSIC FOR MEDITATION", "BOOKS", "AUDIO BOOKS", "VIDEOS", "EVENTS", "NEWS LETTER", "GALLERY", "VOLUNTEER REGISTRATIONS", "REQUEST FOR COUNSELLING", "DONATE", "ADMISSION CENTERS", "CONTACT US", "ABOUT US", "MY PROFILE", "LOGOUT", "Delete Account"]
     
     private let btnCancelColor =  ColorConverter.hexStringToUIColor(hex: "F7B245")
 
@@ -74,7 +78,9 @@ class DashboardVC: UIViewController {
     var eventLink2 = [String]()
     
     var selectedItem = ""
-    
+    var fullName = ""
+    var emailTxt = ""
+    var familyName = ""
     var galleryHeaderLabelArray = [String]()
     var galleryImagesArray = [String]()
     
@@ -84,7 +90,7 @@ class DashboardVC: UIViewController {
         collectionVW.showsHorizontalScrollIndicator = false
         collectionVW.reloadData()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background_gradient.jpg")!)
-    
+        self.navigationItem.setHidesBackButton(true, animated: true)
         let ref111 = Database.database().reference()
         print(ref111)
         remoteConfig = RemoteConfig.remoteConfig()
@@ -95,20 +101,18 @@ class DashboardVC: UIViewController {
                        let valueD = child as! DataSnapshot
                        let keyD = valueD.key
                        let value1 = valueD.value
-                      // print("The Key from the keyD: \(keyD)")
-                     //  print("The Key value from the: \(value1)")
                        self.admisionCenteresArray.append(keyD)
-                      // print("The value from the keyD: \(value1)")
                    }
                })
         checkUserLoggedIn()
         fetchUsersData()
+        let link = "Ektha Dhyanam 5:00am To 6:30am 9:30pm To 11pm and Spiritual Class at 2:00pm to 4:00pm Every Day".uppercased()
+        zoomSessionBtnLink.setTitle(link, for: .normal)
+        zoomSessionBtnLink.setTitleColor(UIColor.white, for: .normal)
     }
     
     func fetchUsersData() {
         Database.database().reference().child("Admission Centers").observe(.childAdded) { (snapshot) in
-          //  print("UserDataaaFound:\(snapshot.value! as Any)")
-          // admisionCenteresArray.append(snapshot.value as Any)
             
         }
         self.getFirebaseData()
@@ -121,62 +125,73 @@ class DashboardVC: UIViewController {
         }
         print("LoggedIn:\(uid)")
     }
+    @IBAction func zoomSessionAction(sender: UIButton) {
+        let url = URL(string: "https://us02web.zoom.us/j/6998042869?pwd=ZVJZelhBcGhIR0VZbllzSjh5V0xVQT09")
+        UIApplication.shared.open(url!, options: [:])
+    }
     @IBAction func btnCancelTapped(sender: UIButton) {
-        if selectedItem == BookVary.audios{
+        if selectedItem == BookVary.audios {
             self.audioBooksPopView.removeFromSuperview()
-        } else if selectedItem == BookVary.videos{
+        } else if selectedItem == BookVary.videos {
             self.videosPopView.removeFromSuperview()
+        } else if selectedItem == BookVary.counsellingRequest {
+            self.counsellingView.removeFromSuperview()
+        } else if selectedItem == BookVary.events {
+            self.eventsView.removeFromSuperview()
         } else {
             self.popView.removeFromSuperview()
         }
     }
     
-    @IBAction func btnCancelTapped1(_ sender: UIButton) {
-        
-        if selectedItem == BookVary.audios {
-            self.audioBooksPopView.removeFromSuperview()
-        } else if selectedItem == BookVary.videos{
-            self.videosPopView.removeFromSuperview()
-        } else {
-            self.eventsView.removeFromSuperview()
-        }
-    }
     @IBAction func actionKannada(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "SpritualTablets", bundle: nil)
         guard let meditaionVC = storyboard.instantiateViewController(withIdentifier: "BooksContentVC") as? BooksContentVC else { return }
-       // meditaionVC.isComingFrom = LanguagesTypes.kannada.rawValue
         if selectedItem == BookVary.audios{
             
             meditaionVC.isComingFrom = BookVary.audios
             meditaionVC.languageSelect = LanguagesTypes.kannada.rawValue
+            self.navigationController?.pushViewController(meditaionVC, animated: false)
+            
+        } else if selectedItem == BookVary.counsellingRequest {
+            
+            let storyboard = UIStoryboard(name: "SpritualTablets", bundle: nil)
+            guard let requestCounselingVC = storyboard.instantiateViewController(withIdentifier: "RequestCounsellingVC") as? RequestCounsellingVC else { return }
+            requestCounselingVC.isComingAbout = CounsellingLanguage.kannada.rawValue
+            self.navigationController?.pushViewController(requestCounselingVC, animated: false)
             
         } else {
             meditaionVC.isComingFrom = BookVary.books
             meditaionVC.languageSelect = LanguagesTypes.kannada.rawValue
+            self.navigationController?.pushViewController(meditaionVC, animated: false)
         }
-        self.navigationController?.pushViewController(meditaionVC, animated: false)
     }
     @IBAction func actionHindi(_ sender: UIButton) {
        
         let storyboard = UIStoryboard(name: "SpritualTablets", bundle: nil)
         guard let meditaionVC = storyboard.instantiateViewController(withIdentifier: "BooksContentVC") as? BooksContentVC else { return }
-       // meditaionVC.isComingFrom = LanguagesTypes.hindi.rawValue
         if selectedItem == BookVary.audios{
             
             meditaionVC.isComingFrom = BookVary.audios
             meditaionVC.languageSelect = LanguagesTypes.hindi.rawValue
+            self.navigationController?.pushViewController(meditaionVC, animated: false)
             
         } else if selectedItem == BookVary.videos {
             
             meditaionVC.isComingFrom = BookVary.videos
             meditaionVC.languageSelect = LanguagesTypes.hindi.rawValue
+            self.navigationController?.pushViewController(meditaionVC, animated: false)
+        } else if selectedItem == BookVary.counsellingRequest {
+            
+            let storyboard = UIStoryboard(name: "SpritualTablets", bundle: nil)
+            guard let requestCounselingVC = storyboard.instantiateViewController(withIdentifier: "RequestCounsellingVC") as? RequestCounsellingVC else { return }
+            requestCounselingVC.isComingAbout = CounsellingLanguage.hindi.rawValue
+            self.navigationController?.pushViewController(requestCounselingVC, animated: false)
+            
         } else {
             meditaionVC.isComingFrom = BookVary.books
             meditaionVC.languageSelect = LanguagesTypes.hindi.rawValue
-            
-           // meditaionVC.isComingFrom = LanguagesTypes.hindi.rawValue
+            self.navigationController?.pushViewController(meditaionVC, animated: false)
         }
-        self.navigationController?.pushViewController(meditaionVC, animated: false)
     }
     @IBAction func actionTamil(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "SpritualTablets", bundle: nil)
@@ -184,6 +199,13 @@ class DashboardVC: UIViewController {
         meditaionVC.isComingFrom = BookVary.books
         meditaionVC.languageSelect = LanguagesTypes.tamil.rawValue
         self.navigationController?.pushViewController(meditaionVC, animated: false)
+      
+    }
+    @IBAction func actionUSA(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "SpritualTablets", bundle: nil)
+        guard let requestCounselingVC = storyboard.instantiateViewController(withIdentifier: "RequestCounsellingVC") as? RequestCounsellingVC else { return }
+        requestCounselingVC.isComingAbout = CounsellingLanguage.usa.rawValue
+        self.navigationController?.pushViewController(requestCounselingVC, animated: false)
       
     }
    
@@ -195,17 +217,25 @@ class DashboardVC: UIViewController {
             
             meditaionVC.isComingFrom = BookVary.audios
             meditaionVC.languageSelect = LanguagesTypes.telugu.rawValue
+            self.navigationController?.pushViewController(meditaionVC, animated: false)
             
         } else if selectedItem == BookVary.videos {
             
             meditaionVC.isComingFrom = BookVary.videos
             meditaionVC.languageSelect = LanguagesTypes.telugu.rawValue
+            self.navigationController?.pushViewController(meditaionVC, animated: false)
+            
+        } else if selectedItem == BookVary.counsellingRequest {
+            let storyboard = UIStoryboard(name: "SpritualTablets", bundle: nil)
+            guard let requestCounselingVC = storyboard.instantiateViewController(withIdentifier: "RequestCounsellingVC") as? RequestCounsellingVC else { return }
+            requestCounselingVC.isComingAbout = CounsellingLanguage.telugu.rawValue
+            self.navigationController?.pushViewController(requestCounselingVC, animated: false)
             
         } else {
             meditaionVC.isComingFrom = BookVary.books
             meditaionVC.languageSelect = LanguagesTypes.telugu.rawValue
+            self.navigationController?.pushViewController(meditaionVC, animated: false)
         }
-        self.navigationController?.pushViewController(meditaionVC, animated: false)
         
         
     }
@@ -262,6 +292,27 @@ class DashboardVC: UIViewController {
         meditaionVC.isComingFrom = EventsType.anandhaoBrahmo.rawValue
         self.navigationController?.pushViewController(meditaionVC, animated: false)
     }
+    func openWhatsapp(){
+        // let urlWhats = "whatsapp://send?phone=(mobile number with country code)"
+        let urlWhats = "whatsapp://send?phone=+919985466499&text=Hi,Is ANy one Available?"
+        if let urlString = urlWhats.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed){
+            if let whatsappURL = URL(string: urlString) {
+                if UIApplication.shared.canOpenURL(whatsappURL){
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(whatsappURL, options: [:], completionHandler: nil)
+                    } else {
+                        UIApplication.shared.openURL(whatsappURL)
+                    }
+                }
+                else {
+                    print("Install Whatsapp")
+                }
+            }
+        }
+    }
+    @IBAction func whatsAppLinkAction(_ sender: UIButton) {
+        openWhatsapp()
+    }
 }
 
 extension DashboardVC: UICollectionViewDataSource {
@@ -297,6 +348,12 @@ extension DashboardVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     
         let object = labelNamesArray[indexPath.row]
+        if indexPath.item == 0 {
+            let storyboard = UIStoryboard(name: "SpritualTablets", bundle: nil)
+            guard let weeklyQuoteVC = storyboard.instantiateViewController(withIdentifier: "WeeklyQuoteVC") as? WeeklyQuoteVC else { return }
+            weeklyQuoteVC.weekQuoteText = self.weeklyQuoteDataArray
+            self.navigationController?.pushViewController(weeklyQuoteVC, animated: false)
+        }
         if indexPath.item == 1 {
             guard let musicVC = self.storyboard?.instantiateViewController(withIdentifier: "MusicMeditationVC") as? MusicMeditationVC else { return }
             self.navigationController?.pushViewController(musicVC, animated: false)
@@ -325,6 +382,7 @@ extension DashboardVC: UICollectionViewDelegate {
             
         }
         if indexPath.item == 5 {
+            selectedItem = object
             spinnerCreation(view: self.view, isStart: true)
             let ref111 = Database.database().reference()
             print(ref111)
@@ -362,8 +420,20 @@ extension DashboardVC: UICollectionViewDelegate {
             guard let musicVC = storyboard.instantiateViewController(withIdentifier: "VolunteerRegistrationVC") as? VolunteerRegistrationVC else { return }
             self.navigationController?.pushViewController(musicVC, animated: false)
         }
+        if indexPath.item == 9 {
+            selectedItem = object
+            counsellingView.frame.size.width = self.view.frame.size.width
+            counsellingView.frame.size.height = self.view.frame.size.height
+            self.view.addSubview(counsellingView)
+            
+        }
        // 09 request counselling
        // 10 // Donate
+        if indexPath.item == 10 {
+            let storyboard = UIStoryboard(name: "SpritualTablets", bundle: nil)
+            guard let musicVC = storyboard.instantiateViewController(withIdentifier: "DonateFundVC") as? DonateFundVC else { return }
+            self.navigationController?.pushViewController(musicVC, animated: false)
+        }
         if indexPath.item == 11 {
             guard let admissionCentersVc = self.storyboard?.instantiateViewController(withIdentifier: "AdmissionCentersVC") as? AdmissionCentersVC else { return }
            // admissionCentersVc.admisionCenteresDataArray = self.admisionCenteresArray
@@ -379,9 +449,47 @@ extension DashboardVC: UICollectionViewDelegate {
         }
         if indexPath.item == 14 {
             guard let musicVC = self.storyboard?.instantiateViewController(withIdentifier: "ProfileUpdateVC") as? ProfileUpdateVC else { return }
+            musicVC.fullName = self.fullName
+            musicVC.emailId = self.emailTxt
             self.navigationController?.pushViewController(musicVC, animated: false)
         }
-        
+        if indexPath.item == 15 {
+            do {
+                try Auth.auth().signOut()
+                guard let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as? LoginVC else { return }
+                self.navigationController?.pushViewController(loginVC, animated: true)
+            } catch let signOutError as NSError {
+                print ("Error signing out: %@", signOutError)
+            }
+        }
+        if indexPath.item == 16 {
+            do {
+                let user = Auth.auth().currentUser
+
+                user?.delete { error in
+                  if let error = error {
+                    // An error happened.
+                      print ("Error Account: %@", error)
+                  } else {
+                    // Account deleted.
+                      self.view.makeToast("Account Deleted Successfully", duration: 3.0, position: .bottom)
+                      let loginBy = UserDefaults.standard.string(forKey: "login_by")
+                      if loginBy != nil && loginBy == "PHONE" {
+                          UserDefaults.standard.removeObject(forKey: "login_by")
+                      } else if loginBy != nil && loginBy == "GOOGLE" {
+                          UserDefaults.standard.removeObject(forKey: "login_by")
+                      } else if loginBy != nil && loginBy == "APPLE" {
+                          UserDefaults.standard.removeObject(forKey: "login_by")
+                      }
+                      UserDefaults.standard.removeObject(forKey: "")
+                      guard let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as? LoginVC else { return }
+                      self.navigationController?.pushViewController(loginVC, animated: true)
+                  }
+                }
+            } catch let signOutError as NSError {
+                print ("Error Delete Account: %@", signOutError)
+            }
+        }
     }
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
        
@@ -451,30 +559,6 @@ extension DashboardVC {
         viewAlert.layer.shadowRadius  = 3.0
 
         lblAlertText?.font = UIFont(name: "Roboto-Medium", size: 20.0)
-       // lblAlertText?.text   = strAlertText
-        
-//        if let aCancelTitle = btnCancelTitle {
-//            btnCancel.setTitle(aCancelTitle, for: .normal)
-//            btnCancel.setTitleColor(btnCancelColor, for: .normal)
-//        } else {
-//            btnCancel.isHidden  = true
-//        }
-      //  btnCancel.setTitleColor(btnCancelColor, for: .normal)
-        
-//        let setTelugu = NSLocalizedString("Language", comment: "Telugu button")
-//        btnTelugu.setTitle(setTelugu, for: .normal)
-//
-//        let setHindi = NSLocalizedString("Language", comment: "Hindi button")
-//        btnHindi.setTitle(setHindi, for: .normal)
-//
-//        let setKannada = NSLocalizedString("Language", comment: "Kanada button")
-//        btnKannada.setTitle(setKannada, for: .normal)
-//
-//        let setMarati = NSLocalizedString("Language", comment: "marati button")
-//        btnMarati.setTitle(setMarati, for: .normal)
-//
-//        let setGujarati = NSLocalizedString("Language", comment: "Gujart button")
-//        btnGujarati.setTitle(setGujarati, for: .normal)
         
     }
     /// Hide Alert Controller on background tap
@@ -549,11 +633,10 @@ extension DashboardVC {
                 let valueD = child as! DataSnapshot
                 let keyD = valueD.key
                 let value1 = valueD.value
-              //  print("The Key from the keyD: \(keyD)")
-              //  print("The Key value from Dict is: \(value1 ?? [])")
               
             }
         })
+        
        
     }
     func galleryDbRetrieve() {
@@ -584,10 +667,24 @@ extension DashboardVC {
             
         })
     }
+    func getWeeklyQuote() {
+        let ref111 = Database.database().reference()
+        ref111.child("Weekly Quote").observe(.value, with: { snapshot in
+            for child in snapshot.children {
+                let valueD = child as! DataSnapshot
+                let keyD = valueD.key
+                let value1 = valueD.value
+                print("WeeklyQuote key: \(keyD)")
+                self.weeklyQuoteDataArray.append(keyD)
+            }
+        })
+    }
 }
 class BookVary {
    
     static let books = "BOOKS"
     static let audios = "AUDIO BOOKS"
     static let videos = "VIDEOS"
+    static let counsellingRequest = "REQUEST FOR COUNSELLING"
+    static let events = "EVENTS"
 }

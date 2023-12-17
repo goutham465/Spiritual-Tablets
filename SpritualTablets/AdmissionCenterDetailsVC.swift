@@ -24,6 +24,7 @@ class AdmissionCenterDetailsVC: UIViewController {
     @IBOutlet weak var scrollVieww: UIScrollView!
     @IBOutlet weak var scrolCardView: UIView!
     @IBOutlet weak var scrolheightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var centerName: UILabel!
     
     var dataArray = NSMutableDictionary()
     // String()
@@ -35,6 +36,9 @@ class AdmissionCenterDetailsVC: UIViewController {
     var reviewComents = [String]()
     var reviewStars = [String]()
     var tblCellCount: Int = 0
+    var userLatitude = ""
+    var userLongitude = ""
+    var dateLabelData = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +52,7 @@ class AdmissionCenterDetailsVC: UIViewController {
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background_gradient.jpg")!)
         self.reviewsTblView.backgroundColor = .clear
         self.scrollVieww.delegate = self
+        centerName.text = admisionName
         
         Database.database().reference().child("Admission Centers").observe(.childAdded) { (snapshot) in
             print("UserDataaaFound:\(snapshot.value! as Any)")
@@ -81,6 +86,13 @@ class AdmissionCenterDetailsVC: UIViewController {
 
                     })
                 }
+                if  let locationValues = value["Location"] as? NSDictionary {
+                    
+                    if let latValue = locationValues["lat"] as? String, let longValue = locationValues["lon"] as? String {
+                        self.userLatitude = latValue
+                        self.userLongitude = longValue
+                    }
+                }
                 if let reviews = value["Reviews"] as? NSDictionary {
                     reviews.forEach({ element in
                         print(element)
@@ -96,9 +108,9 @@ class AdmissionCenterDetailsVC: UIViewController {
                             }
                             self.reviewsTblView.isHidden = false
                             self.reviewsTblView.reloadData()
-                            self.tblHeightConstraint.constant = self.reviewsTblView.contentSize.height
-                            self.scrolheightConstraint.constant = self.reviewsTblView.contentSize.height + self.view.frame.size.height
-                            self.scrollVieww.contentSize = CGSize.init(width: self.scrollVieww.contentSize.width, height: self.reviewsTblView.contentSize.height + self.view.frame.size.height)
+                         //   self.tblHeightConstraint.constant = self.reviewsTblView.contentSize.height
+                          //  self.scrolheightConstraint.constant = 1000.0 //self.reviewsTblView.contentSize.height + self.view.frame.size.height
+                          //  self.scrollVieww.contentSize = CGSize.init(width: self.scrollVieww.contentSize.width, height: self.reviewsTblView.contentSize.height + self.view.frame.size.height)
                         }
 
                     })
@@ -119,11 +131,20 @@ class AdmissionCenterDetailsVC: UIViewController {
     @IBAction func wirteReviewBtnAction(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let disController = storyboard.instantiateViewController(withIdentifier: "WriteReviewVC") as? WriteReviewVC {
+            disController.admissionName = self.admisionName
             navigationController?.pushViewController(disController, animated: true)
         }
     }
     @IBAction func navigateToLocation(_ sender: UIButton) {
         
+        if UIApplication.shared.canOpenURL(NSURL(string: "comgooglemaps://")! as URL) {
+            UIApplication.shared.open(NSURL(string:
+                                                "https://www.google.com/maps/dir/?api=1&origin=Current+Location&destination=\(self.userLatitude),\(self.userLongitude)&travelmode=driving")! as URL, options: [:], completionHandler: nil)
+            
+        } else {
+            UIApplication.shared.open(NSURL(string:
+                                                "https://www.google.com/maps/dir/?api=1&origin=Current+Location&destination=\(self.userLatitude),\(self.userLongitude)&travelmode=driving")! as URL, options: [:], completionHandler: nil)
+        }
         
     }
 //    func calculateSizeOfLabel(text:String,labelWidth:CGFloat,labelFont:UIFont)->CGSize{

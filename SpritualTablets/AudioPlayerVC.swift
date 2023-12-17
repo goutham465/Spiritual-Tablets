@@ -8,7 +8,6 @@
 import UIKit
 import AVFAudio
 import AVFoundation
-import SwiftOverlays
 
 class AudioPlayerVC: UIViewController {
 
@@ -85,7 +84,6 @@ class AudioPlayerVC: UIViewController {
             }
             
         }
-       // SwiftOverlays.removeAllBlockingOverlays()
     }
     
     @IBAction func backAction(_ sender: UIButton) {

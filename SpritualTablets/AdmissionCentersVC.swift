@@ -48,34 +48,14 @@ class AdmissionCentersVC: UIViewController, UITableViewDataSource, UITableViewDe
                 print("The Key from the keyD: \(keyD)")
                 print("The Key value from Dict is: \(value1 ?? [])")
                 self.admisionCenteresDataArray.append(keyD)
-            //NSMutableDictionary()
-//              //  if snapshot.children > 0 {
-//                for dictKey in value1 ?? [] {
-//                    productsData.append(dictKey)
-//                    totalArrData.setValue(productsData, forKey: keyD)
-//                }
-//               // }
-                
-             //   self.insideDetailsArr.append(value1 as! NSDictionary)
-//                Database.database().reference().child("Admission Centers").observe(.childAdded) { (snapshot) in
-//                    if let data = snapshot.value! as? NSMutableDictionary {
-//
-//                        self.totalArrData = data
-//                    }
-//                   // self.totalArrData.setValue(snapshot.value! as Any, forKey: keyD)
-//
-//                }
                 if let data = value1 ?? [] as? NSMutableDictionary {
                     self.totalArrData = data as! NSMutableDictionary
-                   // print("totalArrData:\(self.totalArrData)")
                 }
-               // self.productsData.app
                 for temp in self.totalArrData  {
                     self.productsData.setValue(temp, forKey: keyD)
                 }
                 print("totalArrData:\(self.productsData)")
                 self.tblView.reloadData()
-                // print("The value from the keyD: \(value1)")
                 for grandchild in (child as AnyObject).children {
                     let valueD = grandchild as! DataSnapshot
                     let keyD = valueD.key
@@ -99,18 +79,6 @@ class AdmissionCentersVC: UIViewController, UITableViewDataSource, UITableViewDe
                 }
             }
         }
-//        ref111.child("Admission Centers").observe(.value, with: { snapshot in
-//            for child in snapshot.children {
-//                for grandchild in (child as AnyObject).children {
-//                    let valueD = grandchild as! DataSnapshot
-//                    let keyD = valueD.key
-//                    let value1 = valueD.value
-//                    //  print(keyD)
-//                    print("The Key-value from the keyD: \(keyD)")
-//                    print("The Key-value11 from the keyD11: \(value1)")
-//                }
-//            }
-//        })
         let totalConatctDetails = "\("")\("")\("")"
     }
     
@@ -151,25 +119,15 @@ class AdmissionCentersVC: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if pendingType == .customer {
-//            let leadObj = searchActive ? arrSearchedPendingCustomer[indexPath.row] : arrPendingCustomer[indexPath.row]
-//            getLeadDetailAPI(leadId: leadObj.leadId ?? "")
-//        } else {
              let storyboard = UIStoryboard(name: "SpritualTablets", bundle: nil)
             if let disController = storyboard.instantiateViewController(withIdentifier: "AdmissionCenterDetailsVC") as? AdmissionCenterDetailsVC {
                 let object = self.admisionCenteresDataArray[indexPath.section]
-              //  disController.dataArray = object as! NSMutableDictionary
-//                if let data = object as? NSMutableDictionary {
-//                    disController.dataArray = data
-//                }
                 disController.admisionName = object
                 
                 if indexPath.row == 0 {
-                   // disController.dataArray = self.productsData[0]
                 }
                 navigationController?.pushViewController(disController, animated: true)
             }
-//        }
     }
 
 }

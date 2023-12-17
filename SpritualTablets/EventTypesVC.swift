@@ -56,21 +56,29 @@ class EventTypesVC: UIViewController, WKUIDelegate {
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background_gradient.jpg")!)
         if isComingFrom == EventsType.meditation.rawValue {
             eventsTblView.register(UINib(nibName: "EventsTblCell", bundle: nil), forCellReuseIdentifier: "EventsTblCell")
+           // eventsTblView.rowHeight = UITableView.automaticDimension
+            eventsTblView.estimatedRowHeight = UITableView.automaticDimension
             eventsTblView.rowHeight = UITableView.automaticDimension
+            eventsTblView.reloadData()
         } else if isComingFrom == EventsType.workShops.rawValue {
             
             eventsTblView.register(UINib(nibName: "WorkShopsEventTypeCell", bundle: nil), forCellReuseIdentifier: "WorkShopsEventTypeCell")
             eventsTblView.rowHeight = UITableView.automaticDimension
             
-        } else {
+        } else if isComingFrom == EventsType.anandhaoBrahmo.rawValue {
             eventsTblView.register(UINib(nibName: "EventsType2Cell", bundle: nil), forCellReuseIdentifier: "EventsType2Cell")
+            
+            eventsTblView.estimatedRowHeight = UITableView.automaticDimension
             eventsTblView.rowHeight = UITableView.automaticDimension
+            eventsTblView.reloadData()
         }
         self.getFireBaseData()
-       // self.eventsTblView.reloadData()
     }
     @IBAction func backAction(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
+    }
+    @IBAction func btnCancelTapped(sender: UIButton) {
+        self.view.removeFromSuperview()
     }
     
     func getFireBaseData() {
@@ -85,12 +93,7 @@ class EventTypesVC: UIViewController, WKUIDelegate {
             for child in snapshot.children {
                 let valueD = child as! DataSnapshot
                 let keyD = valueD.key
-               // let value1 = valueD.value
-               // print("The Key from the keyD: \(keyD)")
-               // print("The Key value from Dict is: \(value1 ?? [])")
                 guard let value = valueD.value as? [String: Any] else { return }
-              //  print("The Key value from Dict is: \(value)")
-                
                 if keyD == self.eventsName {
                     // if let reviews = value[self.eventsName] as? NSDictionary {
                     value.forEach({ element in
@@ -142,71 +145,99 @@ class EventTypesVC: UIViewController, WKUIDelegate {
           //  print("UserDataaaFound:\(snapshot.value! as Any)")
             let key = snapshot.key
             guard let value = snapshot.value as? [String: Any] else { return }
-           // print("UserDataaavalue:\(value)")
-//            if key == self.eventsName {
-//                // if let reviews = value[self.eventsName] as? NSDictionary {
-//                value.forEach({ element in
-//                    print("EachElement:\(element)")
-//                    if let valueee = element.value as? NSDictionary {
-//                        print(valueee.count)
-//                        if valueee.value(forKey: "name") != nil {
-//                            self.eventNameArray.append(valueee.value(forKey: "name") as! String)
-//                        }
-//                        if valueee.value(forKey: "timing") != nil {
-//                            self.eventTimingArray.append(valueee.value(forKey: "timing") as! String)
-//                        }
-//                        if valueee.value(forKey: "link") != nil {
-//                            self.eventLinksArray.append(valueee.value(forKey: "link") as! String)
-//                        }
-//                        if valueee.value(forKey: "description") != nil {
-//                            self.eventDescriptionArr.append(valueee.value(forKey: "description") as! String)
-//                        }
-//                        if valueee.value(forKey: "image1") != nil {
-//                            self.eventImagesArray.append(valueee.value(forKey: "image1") as! String)
-//                        }
-//                        if valueee.value(forKey: "link2") != nil {
-//                            self.eventLink2.append(valueee.value(forKey: "link2") as! String)
-//                        }
-//                     //   self.dataArrObj = EventsResponse(name: valueee.value(forKey: "name") as! String,timing: valueee.value(forKey: "timing") as! String, links: valueee.value(forKey: "link") as! String, description: valueee.value(forKey: "description") as! String, links2: valueee.value(forKey: "link2") as! String, images: valueee.value(forKey: "image1") as! String)
-//                        print(self.eventNameArray.count)
-//                        print(self.eventTimingArray.count)
-//                        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-//                            // spinnerCreation(view: self.view, isStart: false)
-//                            self.eventsTblView.reloadData()
-//                        }
-//
-//                    }
-//
-//                })
-//            }
+
         }
     }
     
-    @objc func youtubeAction() {
+    @objc func youtubeAction(_ sender: UIButton) {
+        if isComingFrom == EventsType.anandhaoBrahmo.rawValue {
+            let indexTag = sender.tag
+            guard let tblCell = getCellForView(view: sender) else {
+                return
+            }
+            let tblIndexPath = eventsTblView.indexPath(for: tblCell)
+            let indexPath = IndexPath(row: tblIndexPath?.row ?? 0, section: indexTag)
+            let section = indexPath.section
+            let row = indexPath.row
+            let YoutubeID = self.eventLinksArray[row]
+            let appURL = NSURL(string: YoutubeID)!
+            let webURL = NSURL(string: YoutubeID)!
+            let application = UIApplication.shared
 
-        let YoutubeID =  youtubeId // Your Youtube ID here
-        let appURL = NSURL(string: "youtube://www.youtube.com/watch?v=\(YoutubeID)")!
-        let webURL = NSURL(string: "https://www.youtube.com/watch?v=\(YoutubeID)")!
-        let application = UIApplication.shared
+            if application.canOpenURL(appURL as URL) {
+                application.open(appURL as URL)
+            } else {
+                // if Youtube app is not installed, open URL inside Safari
+                application.open(webURL as URL)
+            }
+        } else if isComingFrom == EventsType.workShops.rawValue {
+            
+            let indexTag = sender.tag
+            guard let tblCell = getCellForView2(view: sender) else {
+                return
+            }
+            let tblIndexPath = eventsTblView.indexPath(for: tblCell)
+            let indexPath = IndexPath(row: tblIndexPath?.row ?? 0, section: indexTag)
+            let section = indexPath.section
+            let row = indexPath.row
+            let YoutubeID = self.eventLink2Array[row]
+            let appURL = NSURL(string: YoutubeID)!
+            let webURL = NSURL(string: YoutubeID)!
+            let application = UIApplication.shared
 
-        if application.canOpenURL(appURL as URL) {
-            application.open(appURL as URL)
-        } else {
-            // if Youtube app is not installed, open URL inside Safari
-            application.open(webURL as URL)
+            if application.canOpenURL(appURL as URL) {
+                application.open(appURL as URL)
+            } else {
+                // if Youtube app is not installed, open URL inside Safari
+                application.open(webURL as URL)
+            }
+            
         }
 
     }
-    @objc func btnImageLinkAction() {
-        
-        let webConfiguration = WKWebViewConfiguration()
-        webView = WKWebView(frame: .zero, configuration: webConfiguration)
-        webView.uiDelegate = self
-        view = webView
-        let url = URL(string: btnImageLink)
-        let request = URLRequest(url: url!)
-        webView.load(request)
-        
+//    @objc func btnImageLinkAction() {
+//
+//        let webConfiguration = WKWebViewConfiguration()
+//        webView = WKWebView(frame: .zero, configuration: webConfiguration)
+//        webView.uiDelegate = self
+//        view = webView
+//        let url = URL(string: btnImageLink)
+//        let request = URLRequest(url: url!)
+//        webView.load(request)
+//
+//    }
+    func getCellForView(view: UIView) -> EventsType2Cell? {
+        var superView = view.superview
+        while superView != nil {
+            if superView is EventsType2Cell {
+                return superView as? EventsType2Cell
+            } else {
+                superView = superView?.superview
+            }
+        }
+        return nil
+    }
+    func getCellForView1(view: UIView) -> EventsTblCell? {
+        var superView = view.superview
+        while superView != nil {
+            if superView is EventsTblCell {
+                return superView as? EventsTblCell
+            } else {
+                superView = superView?.superview
+            }
+        }
+        return nil
+    }
+    func getCellForView2(view: UIView) -> WorkShopsEventTypeCell? {
+        var superView = view.superview
+        while superView != nil {
+            if superView is WorkShopsEventTypeCell {
+                return superView as? WorkShopsEventTypeCell
+            } else {
+                superView = superView?.superview
+            }
+        }
+        return nil
     }
 
 }
@@ -228,12 +259,30 @@ extension EventTypesVC: UITableViewDelegate, UITableViewDataSource {
                 tblCell.lblEventName.text = self.eventNameArray[indexPath.row]
                 tblCell.lblEventTiming.text = self.eventTimingArray[indexPath.row]
                 tblCell.lblEventDescription.text = self.eventDescriptionArr[indexPath.row]
-                tblCell.btnEventLink.setTitle(self.eventLinksArray[indexPath.row], for: .normal)
-                youtubeId = self.eventLinksArray[indexPath.row]
-                tblCell.btnEventLink.addTarget(self, action: #selector(self.youtubeAction), for: .touchUpInside)
-              //  tblCell.heigthConstraint.constant = tblCell.viewBorder.frame.size
-               // tblCell.adjustsFontForContentSizeCategory = true
-              
+               // tblCell.btnEventLink.setTitle(self.eventLinksArray[indexPath.row], for: .normal)
+             //   youtubeId = self.eventLinksArray[indexPath.row]
+                tblCell.btnEventLink.tag = indexPath.row
+             //   tblCell.btnEventLink.addTarget(self, action: #selector(self.youtubeAction), for: .touchUpInside)
+                
+                if(indexPath.row < eventLinksArray.count) {
+                    
+                    tblCell.btnEventLink.setTitle(self.eventLinksArray[indexPath.row], for: .normal)
+                    tblCell.btnEventLink.addTarget(self, action: #selector(self.youtubeAction), for: .touchUpInside)
+                }
+                
+                if(indexPath.row < eventImagesArray.count) {
+                    
+                    let data = self.eventImagesArray[indexPath.row]
+                    if let url = URL(string: data) {
+                        DispatchQueue.global().async {
+                            guard let data2 = try? Data(contentsOf: url) else { return }
+                            DispatchQueue.main.async {
+                                tblCell.eventImage.image = UIImage(data: data2)
+                                
+                            }
+                        }
+                    }
+                }
                 return tblCell
             }
         } else if isComingFrom == EventsType.meditation.rawValue {
@@ -241,31 +290,13 @@ extension EventTypesVC: UITableViewDelegate, UITableViewDataSource {
                 tblCell.lblEventName.text = self.eventNameArray[indexPath.row]
                 tblCell.lblEventTiming.text = self.eventTimingArray[indexPath.row]
                 self.mainStri = "\("Event Name")\(tblCell.lblEventName.text)\("Event Timing:")\(tblCell.lblEventTiming.text)"
-                // tblCell.lblEventName.text = self.mainStri
                 let labelSize = tblCell.lblEventTiming.getSize(constrainedWidth:tblCell.lblEventTiming.frame.size.width)
                 let labelSize2 = tblCell.lblEventName.getSize(constrainedWidth:tblCell.lblEventName.frame.size.width)
-                //  tblCell.contentView.frame.size.height = tblCell.viewBorder.frame.size.height - labelSize.height - labelSize2.height
-                //  tblCell.heigthConstraint.constant = tblCell.contentView.frame.size.height
-                // tblCell.viewBorder.frame.size.height - labelSize.height - labelSize2.height
-                
                 return tblCell
             }
-        } else {
+        } else if isComingFrom == EventsType.workShops.rawValue {
             // Workshopss
             if let tblCell = eventsTblView.dequeueReusableCell(withIdentifier: "WorkShopsEventTypeCell") as? WorkShopsEventTypeCell {
-//                if(self.eventImagesArray[indexPath.row] == self.eventLink2Array[indexPath.row]) {
-//                    
-//                    tblCell.btnEventLink.setTitle(self.eventLink2Array[indexPath.row], for: .normal)
-//                    youtubeId = self.eventLink2Array[indexPath.row]
-//                    tblCell.btnEventLink.addTarget(self, action: #selector(self.youtubeAction), for: .touchUpInside)
-//                    
-//                } else {
-//                    
-//                    tblCell.btnEventLink.setTitle(self.eventLink2Array[indexPath.row], for: .normal)
-//                    youtubeId = self.eventLink2Array[indexPath.row]
-//                    tblCell.btnEventLink.addTarget(self, action: #selector(self.youtubeAction), for: .touchUpInside)
-//                    
-//                }
                 if(indexPath.row < eventLink2Array.count) {
                     
                     tblCell.btnEventLink.setTitle(self.eventLink2Array[indexPath.row], for: .normal)
@@ -283,12 +314,9 @@ extension EventTypesVC: UITableViewDelegate, UITableViewDataSource {
                         guard let data2 = try? Data(contentsOf: url) else { return }
                         DispatchQueue.main.async {
                             tblCell.eventImage.image = UIImage(data: data2)
-                           // tblCell.btnImageLink.setImage(UIImage(data: data2), for: .normal)
-                            
                         }
                     }
                 }
-                tblCell.btnImageLink.addTarget(self, action: #selector(self.btnImageLinkAction), for: .touchUpInside)
                 return tblCell
             }
             
@@ -298,16 +326,41 @@ extension EventTypesVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        if isComingFrom == EventsType.anandhaoBrahmo.rawValue {
+            if let tblCell = eventsTblView.dequeueReusableCell(withIdentifier: "EventsType2Cell") as? EventsType2Cell {
+                if self.eventImagesArray.count > 0 {
+                    let selectedItems = self.eventImagesArray[indexPath.item]
+                    let storyboard = UIStoryboard(name: "SpritualTablets", bundle: nil)
+                    if let disController = storyboard.instantiateViewController(withIdentifier: "ImageViewVC") as? ImageViewVC {
+                        disController.imageUrl = selectedItems
+                        navigationController?.pushViewController(disController, animated: true)
+                    }
+                }
+            }
+        } else if isComingFrom == EventsType.workShops.rawValue {
+            if let tblCell = eventsTblView.dequeueReusableCell(withIdentifier: "WorkShopsEventTypeCell") as? WorkShopsEventTypeCell {
+                if self.eventImagesArray.count > 0 {
+                    let selectedItems = self.eventImagesArray[indexPath.item]
+                    let storyboard = UIStoryboard(name: "SpritualTablets", bundle: nil)
+                    if let disController = storyboard.instantiateViewController(withIdentifier: "ImageViewVC") as? ImageViewVC {
+                        disController.imageUrl = selectedItems
+                        navigationController?.pushViewController(disController, animated: true)
+                    }
+                }
+            }
+        }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if isComingFrom == EventsType.anandhaoBrahmo.rawValue {
-            return 650.0
-            // UITableView.automaticDimension
+            return UITableView.automaticDimension
+            // 800.0
         } else if isComingFrom == EventsType.meditation.rawValue {
-            return 260.0
-        } else {
-            return 950.0
+            return UITableView.automaticDimension
+            // 300.0
+        } else if isComingFrom == EventsType.workShops.rawValue {
+            return 800.0
         }
+        return 0
     }
 }
 
@@ -317,3 +370,6 @@ struct WorkshopEventsResponse {
     var links2: String?
     var images: String?
 }
+//else {
+//    return 900.0
+//}

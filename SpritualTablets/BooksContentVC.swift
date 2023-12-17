@@ -8,7 +8,6 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
-import SwiftOverlays
 
 enum LanguagesTypes: String {
     
@@ -75,7 +74,11 @@ class BooksContentVC: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     @IBAction func backAction(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        if isComingFrom == BookVary.books {
+            self.navigationController?.popToRootViewController(animated: true)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     func getFirebaseData() {
@@ -108,6 +111,7 @@ class BooksContentVC: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func getBooksTypesData() {
+        spinnerCreation(view: self.view, isStart: true)
         if isComingFrom == BookVary.audios {
             
             Database.database().reference().child("Audios").observe(.childAdded) { (snapshot) in
@@ -133,6 +137,7 @@ class BooksContentVC: UIViewController, UITableViewDataSource, UITableViewDelega
                         print("PlayerLinks Count:\(self.playerLinksArray.count)")
                         print("PlayerNames Count:\(self.playerLinksArray.count)")
                     }
+                    spinnerCreation(view: self.view, isStart: false)
                     self.tblView.reloadData()
                 }
                 
@@ -260,38 +265,38 @@ class BooksContentVC: UIViewController, UITableViewDataSource, UITableViewDelega
         return 80.0
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let object = self.booksTotalData[indexPath.row]
-        
-        if isComingFrom == BookVary.audios {
-            
-            let storyboard = UIStoryboard(name: "SpritualTablets", bundle: nil)
-            if let disController = storyboard.instantiateViewController(withIdentifier: "AudioPlayerVC") as? AudioPlayerVC {
-                disController.playerName = object
-                if self.booksTotalData[indexPath.row] == self.playerNameArray[indexPath.row] {
-                    
-                    disController.playerLink = self.playerLinksArray[indexPath.row]
-                  //  SwiftOverlays.showBlockingWaitOverlayWithText(self.playerNameArray[indexPath.row])
+        spinnerCreation(view: self.view, isStart: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+            let object = self.booksTotalData[indexPath.row]
+            if self.isComingFrom == BookVary.audios {
+                let storyboard = UIStoryboard(name: "SpritualTablets", bundle: nil)
+                if let disController = storyboard.instantiateViewController(withIdentifier: "AudioPlayerVC") as? AudioPlayerVC {
+                    disController.playerName = object
+                    if self.booksTotalData[indexPath.row] == self.playerNameArray[indexPath.row] {
+                        
+                        disController.playerLink = self.playerLinksArray[indexPath.row]
+                    }
+                    spinnerCreation(view: self.view, isStart: false)
+                    self.navigationController?.pushViewController(disController, animated: true)
                 }
-                navigationController?.pushViewController(disController, animated: true)
-            }
-        } else if isComingFrom == BookVary.books {
-            
-            let storyboard = UIStoryboard(name: "SpritualTablets", bundle: nil)
-            if let disController = storyboard.instantiateViewController(withIdentifier: "BooksReaderView") as? BooksReaderView {
-                if self.booksTotalData.count == self.booksReaderPdfArray.count {
-                    
-                  //  self.openDocument(name: self.booksReaderPdfArray[indexPath.row])
-                    disController.bookFileName = self.booksReaderPdfArray[indexPath.row]
-                  //  SwiftOverlays.showBlockingWaitOverlayWithText(self.booksReaderPdfArray[indexPath.row])
+            } else if self.isComingFrom == BookVary.books {
+                
+                let storyboard = UIStoryboard(name: "SpritualTablets", bundle: nil)
+                if let disController = storyboard.instantiateViewController(withIdentifier: "BooksReaderView") as? BooksReaderView {
+                    if self.booksTotalData.count == self.booksReaderPdfArray.count {
+                        
+                        //  self.openDocument(name: self.booksReaderPdfArray[indexPath.row])
+                        disController.bookFileName = self.booksReaderPdfArray[indexPath.row]
+                    }
+                    disController.isRootFrom = BookVary.books
+                    spinnerCreation(view: self.view, isStart: false)
+                    self.navigationController?.pushViewController(disController, animated: true)
                 }
-                disController.isRootFrom = BookVary.books
-                navigationController?.pushViewController(disController, animated: true)
+                
+            } else {
+                // Videos
             }
-            
-        } else {
-            // Videos
         }
-        
     }
 
 }

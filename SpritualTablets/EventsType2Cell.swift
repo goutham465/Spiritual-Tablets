@@ -14,6 +14,9 @@ class EventsType2Cell: UITableViewCell {
     @IBOutlet weak var lblEventDescription: UILabel!
     @IBOutlet weak var viewBorder: UIView!
     @IBOutlet weak var heigthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var btnImageLink: UIButton!
+    @IBOutlet weak var eventImage: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

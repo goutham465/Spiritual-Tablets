@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="EventsTblCell" rowHeight="316" id="OCw-yJ-toC" customClass="EventsTblCell" customModule="SpritualTablets" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="316"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="EventsTblCell" rowHeight="237" id="OCw-yJ-toC" customClass="EventsTblCell" customModule="SpritualTablets" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="237"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OCw-yJ-toC" id="2Yl-Ph-wGt">
-                <rect key="frame" x="0.0" y="0.0" width="414" height="316"/>
+                <rect key="frame" x="0.0" y="0.0" width="414" height="237"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xcr-XU-C63" customClass="CardView" customModule="SpritualTablets" customModuleProvider="target">
-                        <rect key="frame" x="10" y="19" width="394" height="272"/>
+                        <rect key="frame" x="10" y="19" width="394" height="208"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Name:" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mK0-yX-IR9">
                                 <rect key="frame" x="14.999999999999993" y="20" width="116.33333333333331" height="18.666666666666671"/>
@@ -30,36 +30,38 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="With Swift 2, Apple has changed global functions to " lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="htv-zF-hcC">
-                                <rect key="frame" x="15" y="50" width="354" height="46.333333333333343"/>
+                                <rect key="frame" x="15" y="50" width="354" height="22.333333333333329"/>
                                 <fontDescription key="fontDescription" name="Kefa-Regular" family="Kefa" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Timing:" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jZE-GD-e3N">
-                                <rect key="frame" x="15.000000000000007" y="116.33333333333333" width="127.66666666666669" height="23.333333333333329"/>
+                                <rect key="frame" x="15.000000000000007" y="92.333333333333329" width="127.66666666666669" height="23.333333333333329"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="23.333333333333343" id="I31-Tt-PwY"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Kefa-Regular" family="Kefa" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="With Swift 2, Apple has otocol. Thus the new syntax is" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hPQ-0e-jZ2">
-                                <rect key="frame" x="15" y="159" width="354" height="46.333333333333343"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="With Swift 2, Apple has otocol. Thus the new syntax is" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hPQ-0e-jZ2">
+                                <rect key="frame" x="15" y="135" width="354" height="46.333333333333343"/>
                                 <fontDescription key="fontDescription" name="Kefa-Regular" family="Kefa" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.396078431372549" green="0.88627450980392153" blue="0.99215686274509807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="htv-zF-hcC" secondAttribute="trailing" constant="25" id="AXC-KK-A2H"/>
                             <constraint firstItem="htv-zF-hcC" firstAttribute="leading" secondItem="xcr-XU-C63" secondAttribute="leading" constant="15" id="DM1-g9-Wzh"/>
                             <constraint firstItem="jZE-GD-e3N" firstAttribute="leading" secondItem="xcr-XU-C63" secondAttribute="leading" constant="15" id="GAJ-av-dfg"/>
-                            <constraint firstItem="hPQ-0e-jZ2" firstAttribute="top" secondItem="jZE-GD-e3N" secondAttribute="bottom" constant="19.329999999999998" id="a6b-Ao-L8L"/>
-                            <constraint firstItem="jZE-GD-e3N" firstAttribute="top" secondItem="htv-zF-hcC" secondAttribute="bottom" constant="20" id="b5q-Qb-GdP"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="hPQ-0e-jZ2" secondAttribute="bottom" constant="26.666666666666657" id="Wzt-f9-9gm"/>
+                            <constraint firstItem="hPQ-0e-jZ2" firstAttribute="top" relation="greaterThanOrEqual" secondItem="jZE-GD-e3N" secondAttribute="bottom" constant="19.329999999999998" id="a6b-Ao-L8L"/>
                             <constraint firstAttribute="trailing" secondItem="hPQ-0e-jZ2" secondAttribute="trailing" constant="25" id="gUH-PJ-2Zc"/>
                             <constraint firstItem="htv-zF-hcC" firstAttribute="top" relation="greaterThanOrEqual" secondItem="mK0-yX-IR9" secondAttribute="bottom" constant="11.33" id="h14-XF-NPX"/>
                             <constraint firstItem="mK0-yX-IR9" firstAttribute="top" relation="greaterThanOrEqual" secondItem="xcr-XU-C63" secondAttribute="top" constant="20" symbolic="YES" id="h2w-ff-ZYg"/>
                             <constraint firstItem="jZE-GD-e3N" firstAttribute="top" relation="greaterThanOrEqual" secondItem="htv-zF-hcC" secondAttribute="bottom" constant="20" id="nmb-ZJ-L43"/>
-                            <constraint firstItem="htv-zF-hcC" firstAttribute="top" secondItem="mK0-yX-IR9" secondAttribute="bottom" constant="11.333333333333329" id="uxU-hg-7Hk"/>
                             <constraint firstItem="mK0-yX-IR9" firstAttribute="leading" secondItem="xcr-XU-C63" secondAttribute="leading" constant="15" id="wls-UR-y9i"/>
                             <constraint firstItem="htv-zF-hcC" firstAttribute="top" secondItem="xcr-XU-C63" secondAttribute="top" constant="50" id="y2p-pX-hWm"/>
                             <constraint firstItem="hPQ-0e-jZ2" firstAttribute="leading" secondItem="xcr-XU-C63" secondAttribute="leading" constant="15" id="zLs-n1-v7D"/>
@@ -68,7 +70,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="xcr-XU-C63" secondAttribute="trailing" constant="10" id="M5d-FP-WGl"/>
-                    <constraint firstAttribute="bottom" secondItem="xcr-XU-C63" secondAttribute="bottom" constant="25" id="aWe-jZ-veg"/>
+                    <constraint firstAttribute="bottom" secondItem="xcr-XU-C63" secondAttribute="bottom" constant="10" id="aWe-jZ-veg"/>
                     <constraint firstItem="xcr-XU-C63" firstAttribute="leading" secondItem="2Yl-Ph-wGt" secondAttribute="leading" constant="10" id="dCP-Ie-hPx"/>
                     <constraint firstItem="xcr-XU-C63" firstAttribute="top" secondItem="2Yl-Ph-wGt" secondAttribute="top" constant="19" id="dmr-7w-bDU"/>
                 </constraints>
@@ -80,7 +82,7 @@
                 <outlet property="lblEventTiming" destination="hPQ-0e-jZ2" id="JMS-iG-Qd1"/>
                 <outlet property="viewBorder" destination="xcr-XU-C63" id="uuZ-Cx-6IQ"/>
             </connections>
-            <point key="canvasLocation" x="-150.76923076923077" y="28.436018957345969"/>
+            <point key="canvasLocation" x="-150.76923076923077" y="0.35545023696682465"/>
         </tableViewCell>
     </objects>
 </document>

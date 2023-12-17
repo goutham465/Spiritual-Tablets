@@ -8,6 +8,8 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import FirebaseFirestore
+import Toast_Swift
 
 class VolunteerRegistrationVC: UIViewController, TblCellClassDelegate {
     
@@ -21,7 +23,7 @@ class VolunteerRegistrationVC: UIViewController, TblCellClassDelegate {
     @IBOutlet var timeBaseTxt: [UIButton]!
     @IBOutlet var contributesTxt: [UIButton]!
     @IBOutlet var volunteerTblView: UITableView!
-    @IBOutlet weak var scrolView: UIScrollView!
+   // @IBOutlet weak var scrolView: UIScrollView!
     @IBOutlet weak var scrolContentHeight: NSLayoutConstraint!
     @IBOutlet weak var tableviewHeight: NSLayoutConstraint!
     @IBOutlet var volunteerTblView1: UITableView!
@@ -31,7 +33,13 @@ class VolunteerRegistrationVC: UIViewController, TblCellClassDelegate {
     var contributeDataArray = ["Admin works", "Creating flyers", "Any digital works", "Social media", "Event Management", "Taking meditation classes", "Counselling", "Others"]
     var hourDataArray = ["1 hour a day", "1 hour a week", "1 hour a month", "10 minutes a week", "Others"]
     var daysDataArray = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-    
+    var daysAppendTxt = [String]()
+    var contributeSelected = false
+    var timeContributeSelected = false
+    var contrinuteStr: String?
+    var timeContributeStr: String?
+    var selectedIndex: Int?
+    var isChecked: Bool = true
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -45,108 +53,60 @@ class VolunteerRegistrationVC: UIViewController, TblCellClassDelegate {
       //  tableviewHeight.constant = volunteerTblView.contentSize.height
        // scrolContentHeight.constant = volunteerTblView.contentSize.height + self.view.frame.size.height
        // scrolView.contentSize = CGSize.init(width: scrolView.contentSize.width, height: volunteerTblView.contentSize.height + self.view.frame.size.height)
+                            // }
+    }
+    
+    @IBAction func backAction(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    @IBAction func submitRegistration(_ sender: UIButton) {
+        guard isValidData() else {
+            return
+        }
+        if isChecked {
+            submitRegistration()
+        } else {
+            self.view.makeToast("Registration Already Exists", duration: 3.0, position: .center)
+        }
+    }
+    func submitRegistration() {
         let ref = Database.database().reference()
         print(ref)
-        ref.child("volunteer_registration").child("address").setValue("Manikonda"){
+        ref.child("volunteer_registration").childByAutoId().setValue(["address": adressTxt.text!, "mail_id": emailtxt.text!, "name": nameTxt.text!, "phone": mobileNumberTxt.text!, "time_to_communicate": contactTxt.text!, "comment": commentsTxt.text ?? "", "submitted_time": "", "time_to_contribute": timeContributeStr!, "way_of_contribution": contrinuteStr!, "work": "", "days": ""]) {
             (error:Error?, ref:DatabaseReference) in
             if let error = error {
                 print("Error:\(error)")
                 //error
             } else {
                 //do stuff
+                self.isChecked = false
+                self.view.makeToast("Registration Done Successfully", duration: 3.0, position: .center)
             }
         }
-                              // }
     }
-    
-    @IBAction func backAction(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+    private func isValidData() -> Bool {
+        if nameTxt.text!.isEmpty {
+            self.view.makeToast("Please enter name", duration: 3.0, position: .bottom)
+            return false
+        } else if adressTxt.text!.isEmpty {
+            self.view.makeToast("Please enter address", duration: 3.0, position: .bottom)
+            return false
+        } else if mobileNumberTxt.text!.isEmpty {
+            self.view.makeToast("Please enter Phone number", duration: 3.0, position: .bottom)
+            return false
+        } else if contrinuteStr == "" {
+            self.view.makeToast("Please select any field", duration: 3.0, position: .bottom)
+            return false
+        } else if timeContributeStr == "" {
+            self.view.makeToast("Please select any time field", duration: 3.0, position: .bottom)
+            return false
+        } else if contactTxt.text!.isEmpty {
+            self.view.makeToast("Please enter time", duration: 3.0, position: .bottom)
+            return false
+        }
+        return true
     }
-//    @IBAction func radioBtnClicked(_ sender: UIButton) {
-//        if sender.tag == 10 {
-//            contributesTxt[0].isSelected = true
-//            contributesTxt[1].isSelected = false
-//            contributesTxt[2].isSelected = false
-//            contributesTxt[3].isSelected = false
-//            contributesTxt[4].isSelected = false
-//            contributesTxt[5].isSelected = false
-//            contributesTxt[6].isSelected = false
-//            contributesTxt[7].isSelected = false
-//
-//            timeBaseTxt[0].isSelected = false
-//            timeBaseTxt[1].isSelected = false
-//            timeBaseTxt[2].isSelected = false
-//            timeBaseTxt[3].isSelected = false
-//            timeBaseTxt[4].isSelected = false
-//
-//            weekDaysTxt[0].isSelected = false
-//            weekDaysTxt[1].isSelected = false
-//            weekDaysTxt[2].isSelected = false
-//            weekDaysTxt[3].isSelected = false
-//            weekDaysTxt[4].isSelected = false
-//            weekDaysTxt[5].isSelected = false
-//            weekDaysTxt[6].isSelected = false
-//
-//            contributesTxt[0].setImage(UIImage(named: "radio_on"), for: .normal)
-//            contributesTxt[1, 2 ,3, 4, 5, 6, 7].setImage(UIImage(named: "radio_off"), for: .normal)
-//            radioBtnBuyBackCylinder.setImage(UIImage(named: "radio_off"), for: .normal)
-//
-//        } else if sender.tag == 20 {
-//            radioBtnRefillCylinder.isSelected = true
-//            radioBtnNewCylinder.isSelected = false
-//            radioBtnBuyBackCylinder.isSelected = false
-//            // radioBtnCash?.isSelected = false
-//           // radioBtnHomeDelivery?.isSelected = false
-//            radioBtnRefillCylinder.setImage(UIImage(named: "radio_on"), for: .normal)
-//            radioBtnNewCylinder.setImage(UIImage(named: "radio_off"), for: .normal)
-//            radioBtnBuyBackCylinder.setImage(UIImage(named: "radio_off"), for: .normal)
-//            // radioBtnCash?.setImage(UIImage(named: "radio_off"), for: .normal)
-//           // radioBtnHomeDelivery?.setImage(UIImage(named: "radio_off"), for: .normal)
-//            self.stackViewCash?.isHidden = false
-//            self.stackViewCash?.tag = 0
-//        } else if sender.tag == 5 {
-//            radioBtnHomeDelivery?.isSelected = true
-//            // radioBtnNewCylinder.isSelected = false
-//           // radioBtnBuyBackCylinder.isSelected = false
-//           // radioBtnRefillCylinder.isSelected = false
-//            radioBtnCash?.isSelected = false
-//            radioBtnHomeDelivery?.setImage(UIImage(named: "radio_on"), for: .normal)
-//           // radioBtnNewCylinder.setImage(UIImage(named: "radio_off"), for: .normal)
-//            // radioBtnBuyBackCylinder.setImage(UIImage(named: "radio_off"), for: .normal)
-//            radioBtnCash?.setImage(UIImage(named: "radio_off"), for: .normal)
-//            // radioBtnBuyBackCylinder.setImage(UIImage(named: "radio_off"), for: .normal)
-//            self.transactionType = "Home Delivery"
-//
-//        } else if sender.tag == 6 {
-//            radioBtnCash?.isSelected = true
-//            // radioBtnNewCylinder.isSelected = false
-//           radioBtnHomeDelivery?.isSelected = false
-//            // radioBtnBuyBackCylinder.isSelected = false
-//            radioBtnCash?.setImage(UIImage(named: "radio_on"), for: .normal)
-//            // radioBtnNewCylinder.setImage(UIImage(named: "radio_off"), for: .normal)
-//           // radioBtnBuyBackCylinder.setImage(UIImage(named: "radio_off"), for: .normal)
-//            radioBtnHomeDelivery?.setImage(UIImage(named: "radio_off"), for: .normal)
-//           // radioBtnBuyBackCylinder.setImage(UIImage(named: "radio_off"), for: .normal)
-//            self.transactionType = "Cash n Carry"
-//        } else {
-//            radioBtnBuyBackCylinder.isSelected = true
-//            radioBtnNewCylinder.isSelected = false
-//            radioBtnRefillCylinder.isSelected = false
-//            radioBtnCash?.isSelected = false
-//            radioBtnHomeDelivery?.isSelected = false
-//            radioBtnBuyBackCylinder.setImage(UIImage(named: "radio_on"), for: .normal)
-//            radioBtnNewCylinder.setImage(UIImage(named: "radio_off"), for: .normal)
-//            radioBtnRefillCylinder.setImage(UIImage(named: "radio_off"), for: .normal)
-//            radioBtnCash?.setImage(UIImage(named: "radio_off"), for: .normal)
-//            radioBtnHomeDelivery?.setImage(UIImage(named: "radio_off"), for: .normal)
-//            self.stackViewCash?.isHidden = true
-//
-//        }
-//        if let delegate = delegate {
-//            delegate.radioBtnAction(cell: self, sender: sender)
-//        }
-//    }
-    
+        
     func checkBoxCellTaped(cell: AnswerCheckboxCell) {
         cellIndexPath = self.volunteerTblView2.indexPath(for: cell)!
         print("CheckBox tapped on row \(cellIndexPath.row)")
@@ -154,10 +114,22 @@ class VolunteerRegistrationVC: UIViewController, TblCellClassDelegate {
     func radioCellTapped(cell: AnswerRadioCell) {
         cellIndexPath = self.volunteerTblView.indexPath(for: cell)!
         print("RadioCell tapped on row \(cellIndexPath.row)")
+        let data = contributeDataArray[cellIndexPath.row]
+        cell.lblAnswer1.text = data
+        print(cell.lblAnswer1.text!)
+        self.contrinuteStr = cell.lblAnswer1.text!
+        selectedIndex = cellIndexPath.row
+        self.volunteerTblView.reloadData()
     }
     func radioCellTapped11(cell: AnswerRadioCell11) {
         cellIndexPath = self.volunteerTblView1.indexPath(for: cell)!
         print("RadioCell11 tapped on row \(cellIndexPath.row)")
+        let data = hourDataArray[cellIndexPath.row]
+        cell.lblAnswer2.text = data
+        print(cell.lblAnswer2.text!)
+        self.timeContributeStr = cell.lblAnswer2.text!
+        selectedIndex = cellIndexPath.row
+        self.volunteerTblView1.reloadData()
     }
 
 }
@@ -175,17 +147,18 @@ extension VolunteerRegistrationVC: UITableViewDataSource, UITableViewDelegate {
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-//        if let checkBoxCell = volunteerTblView.dequeueReusableCell(withIdentifier: "AnswerCheckboxCell", for: indexPath)  as? AnswerCheckboxCell {
-//
-//            return checkBoxCell
-//        }
         if tableView == volunteerTblView {
             if let radioCell = volunteerTblView.dequeueReusableCell(withIdentifier: "AnswerRadioCell", for: indexPath)  as? AnswerRadioCell {
                 radioCell.delegate = self
                 radioCell.radioBtn.tag = indexPath.row
                 let data = contributeDataArray[indexPath.row]
                 radioCell.lblAnswer1.text = data
+                if selectedIndex == indexPath.row {
+                    radioCell.radioBtn.setImage(UIImage(named: "radio_on"), for: .normal)
+                } else {
+                    radioCell.radioBtn.setImage(UIImage(named: "radio_off"), for: .normal)
+                }
+                
                 return radioCell
             }
             
@@ -195,6 +168,11 @@ extension VolunteerRegistrationVC: UITableViewDataSource, UITableViewDelegate {
                 radioCell.radioBtn.tag = indexPath.row
                 let data = hourDataArray[indexPath.row]
                 radioCell.lblAnswer2.text = data
+                if selectedIndex == indexPath.row {
+                    radioCell.radioBtn.setImage(UIImage(named: "radio_on"), for: .normal)
+                } else {
+                    radioCell.radioBtn.setImage(UIImage(named: "radio_off"), for: .normal)
+                }
                 return radioCell
             }
         } else {
@@ -211,6 +189,7 @@ extension VolunteerRegistrationVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 45.0
     }
+
 }
 enum QuetionType {
     static let radioNotSelected = "Single Select"

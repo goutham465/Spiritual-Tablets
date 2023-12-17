@@ -63,8 +63,9 @@ extension MusicMeditationVC: UICollectionViewDataSource {
 
         var cell = UICollectionViewCell()
         if let customCell = collectionView.dequeueReusableCell(withReuseIdentifier: "DashboardeCollectionCell", for: indexPath) as? DashboardeCollectionCell {
-
-            customCell.labelName.text = musicMinutesArray[indexPath.row]
+            let textFont = UIFont(name: "Antic-Bold", size: 16.0)
+            customCell.labelName.font = textFont
+            customCell.labelName.text = "\(musicMinutesArray[indexPath.row]) MINUTES"
             customCell.cardView.layer.cornerRadius = 4
             customCell.cardView.layer.borderWidth = 2
             customCell.cardView.layer.borderColor = UIColor.white.cgColor

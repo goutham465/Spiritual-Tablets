@@ -24,6 +24,8 @@ class MusicMinutesDetailsVC: UIViewController, UITableViewDataSource, UITableVie
     
     var booksTotalData = [String]()
     var isMinutesKey = ""
+    var musicMinuteNamesArray = [String]()
+    var musicMinutesLinkArray = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,21 +47,23 @@ class MusicMinutesDetailsVC: UIViewController, UITableViewDataSource, UITableVie
     
     func getDetailedMusicData() {
         Database.database().reference().child("Music").observe(.childAdded) { (snapshot) in
-           // print("UserDataaaFound:\(snapshot.value! as Any)")
             let key = snapshot.key
-           // guard let value = snapshot.value as? [String: Any] else { return }
-           // print("UserDataaavalue:\(value)")
             if key == self.isMinutesKey {
-//                if let details = value[key] as? NSDictionary {
-//                    
-//                    if let address = details["address"] as? String, let mobileNo = details["mobile_no"] as? String, let name = details["name"] as? String {
-//                        
-//                    }
-//                }
                 guard let value = snapshot.value as? [String: Any] else { return }
                 for data in value {
                     let keyee = data.key
                     self.minustesDetailArray.append(keyee)
+                    if let details = value[keyee] as? NSDictionary {
+                        print("Misuc Minutes Count:\(details.count)")
+                        if let links = details["link"] as? String, let name = details["name"] as? String {
+                            
+                            self.musicMinutesLinkArray.append(links)
+                            self.musicMinuteNamesArray.append(name)
+                            
+                        }
+                    }
+                    print("Misuc Minutes Count:\(self.musicMinutesLinkArray.count)")
+                    print("Misuc Minutes11 Count:\(self.musicMinuteNamesArray.count)")
                 }
                 self.tblView.reloadData()
                 
@@ -75,6 +79,7 @@ class MusicMinutesDetailsVC: UIViewController, UITableViewDataSource, UITableVie
        
         if let tblViewCell = tblView.dequeueReusableCell(withIdentifier: "BooksContentTblCell") as? BooksContentTblCell {
             tblViewCell.lblContentName.text = minustesDetailArray[indexPath.row]
+            tblViewCell.selectionStyle = .none
             return tblViewCell
         }
         return UITableViewCell()
@@ -83,6 +88,21 @@ class MusicMinutesDetailsVC: UIViewController, UITableViewDataSource, UITableVie
         
         return 80.0
     }
-
-
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        spinnerCreation(view: self.view, isStart: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+            let object = self.minustesDetailArray[indexPath.row]
+            let storyboard = UIStoryboard(name: "SpritualTablets", bundle: nil)
+            if let disController = storyboard.instantiateViewController(withIdentifier: "AudioPlayerVC") as? AudioPlayerVC {
+                disController.playerName = object
+                if self.minustesDetailArray[indexPath.row] == self.musicMinuteNamesArray[indexPath.row] {
+                    
+                    disController.playerLink = self.musicMinutesLinkArray[indexPath.row]
+                }
+                spinnerCreation(view: self.view, isStart: false)
+                self.navigationController?.pushViewController(disController, animated: true)
+            }
+        }
+    }
+    
 }
