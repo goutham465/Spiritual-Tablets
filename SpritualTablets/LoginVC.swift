@@ -226,14 +226,19 @@ class LoginVC: UIViewController {
             
             Auth.auth().signIn(with: credential) { (user, error) in
                 if let error = error {
+                    spinnerCreation(view: self.view, isStart: false)
                     print(error.localizedDescription)
                     // complition(false)
                     self.view.makeToast("OTP entered is incorrect", duration: 3.0, position: .center)
                     return
                 }
-                print("Mobile User:\(String(describing: user?.user))")
+                print("Mobile User:\(String(describing: user?.user.phoneNumber))")
+               // UserDefaults.standard.removeObject(forKey: "userLoginMobile")
                 if isNil(assignValue: UserDefaults.standard.string(forKey: "userLoginMobile")) == "" {
-                    UserDefaults.standard.set(user?.user, forKey: "userLoginMobile")
+                    UserDefaults.standard.set(user?.user.phoneNumber, forKey: "userLoginMobile")
+                }
+                if isNil(assignValue: UserDefaults.standard.string(forKey: "userDisplayName")) == "" {
+                    UserDefaults.standard.set(user?.user.displayName, forKey: "userDisplayName")
                 }
                 spinnerCreation(view: self.view, isStart: false)
                 guard let dashboardVC = self.storyboard?.instantiateViewController(withIdentifier: "DashboardVC") as? DashboardVC else { return }
@@ -254,6 +259,7 @@ class LoginVC: UIViewController {
                 
                 if let error = error {
                     print(error)
+                    spinnerCreation(view: self.view, isStart: false)
                     self.view.makeToast("Your mobile number is not valid", duration: 3.0, position: .center)
                     //  complition(false)
                     return
@@ -285,6 +291,7 @@ class LoginVC: UIViewController {
         // Start the sign in flow!
         GIDSignIn.sharedInstance.signIn(withPresenting: self) { [unowned self] result, error in
             if let error = error {
+                spinnerCreation(view: self.view, isStart: false)
                 print(error)
                 return
             }
@@ -298,13 +305,18 @@ class LoginVC: UIViewController {
                                                            accessToken: user.accessToken.tokenString)
             Auth.auth().signIn(with: credential) { (authResult, error) in
                 if let error = error {
+                    spinnerCreation(view: self.view, isStart: false)
                     print("Error occurs when authenticate with Firebase: \(error.localizedDescription)")
                 }
                 print("Gmail User:\(String(describing: authResult?.user))")
                 let userEmail = authResult?.user.email
                // let fullName = authResult?.additionalUserInfo?.profile.
+               // UserDefaults.standard.removeObject(forKey: "userLoginEmail")
                 if isNil(assignValue: UserDefaults.standard.string(forKey: "userLoginEmail")) == "" {
                     UserDefaults.standard.set(userEmail, forKey: "userLoginEmail")
+                }
+                if isNil(assignValue: UserDefaults.standard.string(forKey: "userDisplayName")) == "" {
+                    UserDefaults.standard.set(authResult?.user.displayName, forKey: "userDisplayName")
                 }
                 spinnerCreation(view: self.view, isStart: false)
                 self.view.makeToast("Google SignIn Successfully", duration: 3.0, position: .center)
@@ -523,6 +535,8 @@ extension LoginVC: ASAuthorizationControllerDelegate {
             
             // For the purpose of this demo app, store the `userIdentifier` in the keychain.
             self.saveUserInKeychain(userIdentifier)
+            UserDefaults.standard.set(fullName, forKey: "userDisplayName")
+            UserDefaults.standard.set(email, forKey: "userLoginEmailApple")
             
             // For the purpose of this demo app, show the Apple ID credential information in the `ResultViewController`.
             self.showResultViewController(userIdentifier: userIdentifier, fullName: fullName, email: email)

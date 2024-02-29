@@ -12,7 +12,7 @@ class WorkShopsEventTypeCell: UITableViewCell {
     @IBOutlet weak var lblEventName: UILabel!
     @IBOutlet weak var lblEventTiming: UILabel!
     @IBOutlet weak var btnEventLink: UIButton!
-    @IBOutlet weak var lblLocation: UILabel!
+    @IBOutlet weak var lblDescription: UILabel!
     @IBOutlet weak var viewBorder: UIView!
     @IBOutlet weak var eventImage: UIImageView!
     @IBOutlet weak var heigthConstraint: NSLayoutConstraint!

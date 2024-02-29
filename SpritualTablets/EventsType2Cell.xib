@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -128,6 +128,7 @@
                 <outlet property="btnEventLink" destination="bzb-WL-PHg" id="5h7-aH-g80"/>
                 <outlet property="btnImageLink" destination="Uf0-zX-0jI" id="rFd-MS-Q8V"/>
                 <outlet property="eventImage" destination="qcx-W3-6Hx" id="qbe-H0-ymM"/>
+                <outlet property="heigthConstraint" destination="NVy-Dz-7kO" id="Yt4-yL-ocV"/>
                 <outlet property="lblEventDescription" destination="UTG-R9-Ir5" id="aJb-ms-PpC"/>
                 <outlet property="lblEventName" destination="lup-yU-lSP" id="Kkx-d2-UOT"/>
                 <outlet property="lblEventTiming" destination="06D-9H-bGl" id="B95-Hp-YAs"/>

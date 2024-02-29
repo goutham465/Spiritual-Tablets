@@ -87,10 +87,8 @@ class AudioPlayerVC: UIViewController {
     }
     
     @IBAction func backAction(_ sender: UIButton) {
+        player?.pause()
         self.navigationController?.popViewController(animated: true)
-    }
-    @IBAction func ButtonGoToBack(_ sender: Any) {
-       // self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func ButtonGoToBackSec(_ sender: Any) {
@@ -132,10 +130,6 @@ class AudioPlayerVC: UIViewController {
             player?.play()
         }
     }
-    
-    @IBAction func ButtonGoToNext(_ sender: Any) {
-    }
-    
     
     @objc func playbackSliderValueChanged(_ playbackSlider:UISlider)
     {

@@ -60,14 +60,17 @@ class WriteReviewVC: UIViewController, UITextFieldDelegate {
         return true
     }
     func submitReviewAction() {
+        spinnerCreation(view: self.view, isStart: true)
         let ref = Database.database().reference()
         print(ref)
         ref.child("Admission Centers").child(self.admissionName).child("Reviews").childByAutoId().setValue(["name": fulNameTxt.text ?? "", "stars": ratingValue, "user_id": "", "comments": comentsTxt.text ?? ""]) {
             (error:Error?, ref:DatabaseReference) in
             if let error = error {
+                spinnerCreation(view: self.view, isStart: false)
                 print("Error:\(error)")
                 //error
             } else {
+                spinnerCreation(view: self.view, isStart: false)
                 self.view.makeToast("Review Submitted Successfully", duration: 3.0, position: .center)
             }
         }

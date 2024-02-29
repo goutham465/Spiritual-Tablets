@@ -96,14 +96,14 @@ class DashboardVC: UIViewController {
         remoteConfig = RemoteConfig.remoteConfig()
         let rootRef = Database.database().reference(withPath: "Admission Centers")
         print("Rootref:\(rootRef)")
-        ref111.child("Admission Centers").observe(.value, with: { snapshot in
-                   for child in snapshot.children {
-                       let valueD = child as! DataSnapshot
-                       let keyD = valueD.key
-                       let value1 = valueD.value
-                       self.admisionCenteresArray.append(keyD)
-                   }
-               })
+//        ref111.child("Admission Centers").observe(.value, with: { snapshot in
+//                   for child in snapshot.children {
+//                       let valueD = child as! DataSnapshot
+//                       let keyD = valueD.key
+//                       let value1 = valueD.value
+//                       self.admisionCenteresArray.append(keyD)
+//                   }
+//               })
         checkUserLoggedIn()
         fetchUsersData()
         let link = "Ektha Dhyanam 5:00am To 6:30am 9:30pm To 11pm and Spiritual Class at 2:00pm to 4:00pm Every Day".uppercased()
@@ -313,6 +313,26 @@ class DashboardVC: UIViewController {
     @IBAction func whatsAppLinkAction(_ sender: UIButton) {
         openWhatsapp()
     }
+    @IBAction func shareAppAction(_ sender: UIButton) {
+        if let urlStr = NSURL(string: "https://apps.apple.com/us/app/idxxxxxxxx?ls=1&mt=8") {
+            let objectsToShare = [urlStr]
+            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+            self.present(activityVC, animated: true, completion: nil)
+        }
+    }
+    func signoutDeleteAccount() {
+        let loginBy = UserDefaults.standard.string(forKey: "login_by")
+        if loginBy != nil && loginBy == "PHONE" {
+            UserDefaults.standard.removeObject(forKey: "login_by")
+            UserDefaults.standard.removeObject(forKey: "userLoginMobile")
+        } else if loginBy != nil && loginBy == "GOOGLE" {
+            UserDefaults.standard.removeObject(forKey: "login_by")
+            UserDefaults.standard.removeObject(forKey: "userLoginEmail")
+        } else if loginBy != nil && loginBy == "APPLE" {
+            UserDefaults.standard.removeObject(forKey: "login_by")
+            UserDefaults.standard.removeObject(forKey: "userLoginEmailApple")
+        }
+    }
 }
 
 extension DashboardVC: UICollectionViewDataSource {
@@ -456,6 +476,7 @@ extension DashboardVC: UICollectionViewDelegate {
         if indexPath.item == 15 {
             do {
                 try Auth.auth().signOut()
+                self.signoutDeleteAccount()
                 guard let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as? LoginVC else { return }
                 self.navigationController?.pushViewController(loginVC, animated: true)
             } catch let signOutError as NSError {
@@ -473,14 +494,7 @@ extension DashboardVC: UICollectionViewDelegate {
                   } else {
                     // Account deleted.
                       self.view.makeToast("Account Deleted Successfully", duration: 3.0, position: .bottom)
-                      let loginBy = UserDefaults.standard.string(forKey: "login_by")
-                      if loginBy != nil && loginBy == "PHONE" {
-                          UserDefaults.standard.removeObject(forKey: "login_by")
-                      } else if loginBy != nil && loginBy == "GOOGLE" {
-                          UserDefaults.standard.removeObject(forKey: "login_by")
-                      } else if loginBy != nil && loginBy == "APPLE" {
-                          UserDefaults.standard.removeObject(forKey: "login_by")
-                      }
+                      self.signoutDeleteAccount()
                       UserDefaults.standard.removeObject(forKey: "")
                       guard let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as? LoginVC else { return }
                       self.navigationController?.pushViewController(loginVC, animated: true)
@@ -656,6 +670,7 @@ extension DashboardVC {
                 }
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                spinnerCreation(view: self.view, isStart: false)
                 let storyboard = UIStoryboard(name: "SpritualTablets", bundle: nil)
                 guard let gallerYVC = storyboard.instantiateViewController(withIdentifier: "GalleryImagesVC") as? GalleryImagesVC else { return }
                 gallerYVC.galleryImagesArray = self.galleryImagesArray
@@ -673,7 +688,7 @@ extension DashboardVC {
             for child in snapshot.children {
                 let valueD = child as! DataSnapshot
                 let keyD = valueD.key
-                let value1 = valueD.value
+                _ = valueD.value
                 print("WeeklyQuote key: \(keyD)")
                 self.weeklyQuoteDataArray.append(keyD)
             }

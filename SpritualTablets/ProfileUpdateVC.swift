@@ -60,7 +60,8 @@ class ProfileUpdateVC: UIViewController, UITextFieldDelegate {
             self.mobileNumberTxt.isHidden = false
             self.mobileNumberTxt.text = isNil(assignValue: UserDefaults.standard.string(forKey: "userLoginMobile"))
             self.emailTxt.isHidden = true
-        } else if loginBy != nil && loginBy == "APPLE"{
+            self.nameTxt.text = isNil(assignValue: UserDefaults.standard.string(forKey: "userDisplayName"))
+        } else if loginBy != nil && loginBy == "APPLE" {
             self.emailTxt.isHidden = false
             self.emailTxt.text = isNil(assignValue: emailId)
             self.nameTxt.text = isNil(assignValue: fullName)
@@ -68,9 +69,14 @@ class ProfileUpdateVC: UIViewController, UITextFieldDelegate {
         } else {
             self.emailTxt.isHidden = false
             self.emailTxt.text = isNil(assignValue: UserDefaults.standard.string(forKey: "userLoginEmail"))
-            self.nameTxt.text = isNil(assignValue: fullName)
+            self.nameTxt.text = isNil(assignValue: UserDefaults.standard.string(forKey: "userDisplayName"))
+            // isNil(assignValue: fullName)
+           // self.nameTxt.text = isNil(assignValue: UserDefaults.standard.string(forKey: "userDisplayName"))
             self.mobileNumberTxt.isHidden = true
         }
+        print(isNil(assignValue: UserDefaults.standard.string(forKey: "userDisplayName")))
+        print(isNil(assignValue: UserDefaults.standard.string(forKey: "userLoginEmailApple")))
+        print(isNil(assignValue: UserDefaults.standard.string(forKey: "userLoginMobile")))
     }
     @IBAction func submitProfileUpdate(_ sender: UIButton) {
         guard isValidData() else {
@@ -79,14 +85,17 @@ class ProfileUpdateVC: UIViewController, UITextFieldDelegate {
         submitRegistration()
     }
     func submitRegistration() {
+        spinnerCreation(view: self.view, isStart: true)
         let ref = Database.database().reference()
         print(ref)
         ref.child("users").childByAutoId().setValue(["city": cityTxt.text!, "profile_status": userStatusTxt.text!, "full_name": nameTxt.text!, "mobile_no": mobileNumberTxt.text, "country": countryTxt.text!, "state": stateTxt.text!, "date_of_birth": dobTxt.text!]) {
             (error:Error?, ref:DatabaseReference) in
             if let error = error {
+                spinnerCreation(view: self.view, isStart: false)
                 print("Error:\(error)")
                 //error
             } else {
+                spinnerCreation(view: self.view, isStart: false)
                 self.view.makeToast("Profile Updated Successfully", duration: 3.0, position: .bottom)
             }
         }

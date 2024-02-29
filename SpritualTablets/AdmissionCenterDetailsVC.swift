@@ -35,6 +35,7 @@ class AdmissionCenterDetailsVC: UIViewController {
     var reviewNames = [String]()
     var reviewComents = [String]()
     var reviewStars = [String]()
+    var dateDataArr = [String]()
     var tblCellCount: Int = 0
     var userLatitude = ""
     var userLongitude = ""
@@ -53,7 +54,7 @@ class AdmissionCenterDetailsVC: UIViewController {
         self.reviewsTblView.backgroundColor = .clear
         self.scrollVieww.delegate = self
         centerName.text = admisionName
-        
+        print(Auth.auth().currentUser?.metadata.creationDate ?? "")
         Database.database().reference().child("Admission Centers").observe(.childAdded) { (snapshot) in
             print("UserDataaaFound:\(snapshot.value! as Any)")
             let key = snapshot.key
@@ -106,6 +107,10 @@ class AdmissionCenterDetailsVC: UIViewController {
                             if let coment = valueee.value(forKey: "comments") as? String {
                                 self.reviewComents.append(coment)
                             }
+                            if let dateTxt = valueee.value(forKey: "user_id") as? String {
+                                self.dateDataArr.append(dateTxt)
+                            }
+                            print(self.dateDataArr)
                             self.reviewsTblView.isHidden = false
                             self.reviewsTblView.reloadData()
                          //   self.tblHeightConstraint.constant = self.reviewsTblView.contentSize.height

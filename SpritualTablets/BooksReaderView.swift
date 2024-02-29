@@ -8,7 +8,7 @@
 import UIKit
 import PDFKit
 import WebKit
-
+import SafariServices
 
 class BooksReaderView: UIViewController {
     
@@ -21,9 +21,11 @@ class BooksReaderView: UIViewController {
 
         // Do any additional setup after loading the view.
         if isRootFrom == BookVary.books {
-            self.displayPdf(fileName: bookFileName)
+           // self.displayPdf(fileName: bookFileName)
+            self.openWeb(contentLink: bookFileName)
         } else {
-            self.displayWebView(fileName: bookFileName)
+           // self.displayWebView(fileName: bookFileName)
+            self.openWeb(contentLink: bookFileName)
         }
     }
     @IBAction func backAction(_ sender: UIButton) {
@@ -70,5 +72,21 @@ class BooksReaderView: UIViewController {
         
         return nil
     }
+    func openWeb(contentLink: String) {
+        let url = URL(string: contentLink)!
+        let controller = SFSafariViewController(url: url)
+        controller.preferredBarTintColor = UIColor.darkGray
+        controller.preferredControlTintColor = UIColor.groupTableViewBackground
+        controller.dismissButtonStyle = .close
+        controller.configuration.barCollapsingEnabled = true
+        self.present(controller, animated: true, completion: nil)
+        controller.delegate = self
+    }
 
+}
+extension BooksReaderView: SFSafariViewControllerDelegate
+{
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        controller.dismiss(animated: true, completion: nil)
+    }
 }

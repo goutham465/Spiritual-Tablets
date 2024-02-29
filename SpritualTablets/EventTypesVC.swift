@@ -63,7 +63,9 @@ class EventTypesVC: UIViewController, WKUIDelegate {
         } else if isComingFrom == EventsType.workShops.rawValue {
             
             eventsTblView.register(UINib(nibName: "WorkShopsEventTypeCell", bundle: nil), forCellReuseIdentifier: "WorkShopsEventTypeCell")
+            eventsTblView.estimatedRowHeight = UITableView.automaticDimension
             eventsTblView.rowHeight = UITableView.automaticDimension
+            eventsTblView.reloadData()
             
         } else if isComingFrom == EventsType.anandhaoBrahmo.rawValue {
             eventsTblView.register(UINib(nibName: "EventsType2Cell", bundle: nil), forCellReuseIdentifier: "EventsType2Cell")
@@ -273,6 +275,7 @@ extension EventTypesVC: UITableViewDelegate, UITableViewDataSource {
                 if(indexPath.row < eventImagesArray.count) {
                     
                     let data = self.eventImagesArray[indexPath.row]
+                    tblCell.heigthConstraint.constant = 300
                     if let url = URL(string: data) {
                         DispatchQueue.global().async {
                             guard let data2 = try? Data(contentsOf: url) else { return }
@@ -282,6 +285,8 @@ extension EventTypesVC: UITableViewDelegate, UITableViewDataSource {
                             }
                         }
                     }
+                } else {
+                    tblCell.heigthConstraint.constant = 0
                 }
                 return tblCell
             }
@@ -289,7 +294,7 @@ extension EventTypesVC: UITableViewDelegate, UITableViewDataSource {
             if let tblCell = eventsTblView.dequeueReusableCell(withIdentifier: "EventsTblCell") as? EventsTblCell {
                 tblCell.lblEventName.text = self.eventNameArray[indexPath.row]
                 tblCell.lblEventTiming.text = self.eventTimingArray[indexPath.row]
-                self.mainStri = "\("Event Name")\(tblCell.lblEventName.text)\("Event Timing:")\(tblCell.lblEventTiming.text)"
+                self.mainStri = "\("Event Name")\(String(describing: tblCell.lblEventName.text))\("Event Timing:")\(String(describing: tblCell.lblEventTiming.text))"
                 let labelSize = tblCell.lblEventTiming.getSize(constrainedWidth:tblCell.lblEventTiming.frame.size.width)
                 let labelSize2 = tblCell.lblEventName.getSize(constrainedWidth:tblCell.lblEventName.frame.size.width)
                 return tblCell
@@ -307,6 +312,10 @@ extension EventTypesVC: UITableViewDelegate, UITableViewDataSource {
                 tblCell.btnEventLink.tag = indexPath.row
                 tblCell.lblEventName.text = self.eventNameArray[indexPath.row]
                 tblCell.lblEventTiming.text = self.eventTimingArray[indexPath.row]
+                if(indexPath.row < eventDescriptionArr.count) {
+                    tblCell.lblDescription.text = self.eventDescriptionArr[indexPath.row]
+                }
+                
                 let data = self.eventImagesArray[indexPath.row]
                 btnImageLink = self.eventImagesArray[indexPath.row]
                 if let url = URL(string: data) {
@@ -358,7 +367,8 @@ extension EventTypesVC: UITableViewDelegate, UITableViewDataSource {
             return UITableView.automaticDimension
             // 300.0
         } else if isComingFrom == EventsType.workShops.rawValue {
-            return 800.0
+            return UITableView.automaticDimension
+            // 800.0
         }
         return 0
     }

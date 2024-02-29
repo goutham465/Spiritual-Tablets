@@ -24,14 +24,16 @@ class WeeklyQuoteVC: UIViewController {
         musicBorderView.layer.borderWidth = 4
         musicBorderView.layer.borderColor = UIColor.white.cgColor
         Database.database().reference().child("Weekly Quote").observe(.childAdded) { (snapshot) in
-            print("UserDataaaFound:\(snapshot.value! as Any)")
+            print("WeeklyQuoteData:\(snapshot.value! as Any)")
             let key = snapshot.key
             guard let value = snapshot.value as? [String: Any] else { return }
-            if key == self.getCurrentShortDate() {
+          //  if key == self.getCurrentShortDate() {
                 if let details = value["Title"] as? String {
                     self.labelStr.text = details
+                } else {
+                    self.view.makeToast("Todays Quote is not available", duration: 3.0, position: .bottom)
                 }
-            }
+           // }
         }
     }
   

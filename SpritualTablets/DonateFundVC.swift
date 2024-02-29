@@ -42,7 +42,7 @@ class DonateFundVC: UIViewController, WKUIDelegate {
     @IBAction func donateBtnAction(_ sender: UIButton) {
         self.openWeb(contentLink: "https://payu.in/pay/A381DF3EC1177559CC7B5B2440F3DC67")
     }
-    func openWeb(contentLink : String) {
+    func openWeb(contentLink: String) {
         let url = URL(string: contentLink)!
         let controller = SFSafariViewController(url: url)
         controller.preferredBarTintColor = UIColor.darkGray

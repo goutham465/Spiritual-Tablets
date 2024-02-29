@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import SafariServices
 
 enum LanguagesTypes: String {
     
@@ -80,13 +81,23 @@ class BooksContentVC: UIViewController, UITableViewDataSource, UITableViewDelega
             self.navigationController?.popViewController(animated: true)
         }
     }
+    func openWeb(contentLink: String) {
+        let url = URL(string: contentLink)!
+        let controller = SFSafariViewController(url: url)
+        controller.preferredBarTintColor = UIColor.darkGray
+        controller.preferredControlTintColor = UIColor.groupTableViewBackground
+        controller.dismissButtonStyle = .close
+        controller.configuration.barCollapsingEnabled = true
+        self.present(controller, animated: true, completion: nil)
+        controller.delegate = self
+    }
     
     func getFirebaseData() {
         spinnerCreation(view: self.view, isStart: true)
         let ref111 = Database.database().reference()
         print(ref111)
         ref111.child("Books").observe(.value, with: { snapshot in
-            spinnerCreation(view: self.view, isStart: false)
+           // spinnerCreation(view: self.view, isStart: false)
             for child in snapshot.children {
                 let valueD = child as! DataSnapshot
                 let keyD = valueD.key
@@ -104,6 +115,7 @@ class BooksContentVC: UIViewController, UITableViewDataSource, UITableViewDelega
                     }
                     print("totalArrData:\(self.productsData)")
                     self.tblView.reloadData()
+                    spinnerCreation(view: self.view, isStart: false)
                 }
             }
         })
@@ -137,8 +149,8 @@ class BooksContentVC: UIViewController, UITableViewDataSource, UITableViewDelega
                         print("PlayerLinks Count:\(self.playerLinksArray.count)")
                         print("PlayerNames Count:\(self.playerLinksArray.count)")
                     }
-                    spinnerCreation(view: self.view, isStart: false)
                     self.tblView.reloadData()
+                    spinnerCreation(view: self.view, isStart: false)
                 }
                 
             }
@@ -169,7 +181,7 @@ class BooksContentVC: UIViewController, UITableViewDataSource, UITableViewDelega
                                 
                             }
                             self.tblView.reloadData()
-                            
+                            spinnerCreation(view: self.view, isStart: false)
                         }
                     }
                     
@@ -200,7 +212,7 @@ class BooksContentVC: UIViewController, UITableViewDataSource, UITableViewDelega
                         print("ReaderNames Count:\(self.booksReaderNamesArray.count)")
                     }
                     self.tblView.reloadData()
-                    
+                    spinnerCreation(view: self.view, isStart: false)
                 }
                 
             }
@@ -280,18 +292,24 @@ class BooksContentVC: UIViewController, UITableViewDataSource, UITableViewDelega
                     self.navigationController?.pushViewController(disController, animated: true)
                 }
             } else if self.isComingFrom == BookVary.books {
+                if self.booksTotalData.count == self.booksReaderPdfArray.count {
+                    spinnerCreation(view: self.view, isStart: false)
+                    //  self.openDocument(name: self.booksReaderPdfArray[indexPath.row])
+                //    disController.bookFileName = self.booksReaderPdfArray[indexPath.row]
+                    self.openWeb(contentLink: self.booksReaderPdfArray[indexPath.row])
+                }
                 
                 let storyboard = UIStoryboard(name: "SpritualTablets", bundle: nil)
-                if let disController = storyboard.instantiateViewController(withIdentifier: "BooksReaderView") as? BooksReaderView {
-                    if self.booksTotalData.count == self.booksReaderPdfArray.count {
-                        
-                        //  self.openDocument(name: self.booksReaderPdfArray[indexPath.row])
-                        disController.bookFileName = self.booksReaderPdfArray[indexPath.row]
-                    }
-                    disController.isRootFrom = BookVary.books
-                    spinnerCreation(view: self.view, isStart: false)
-                    self.navigationController?.pushViewController(disController, animated: true)
-                }
+//                if let disController = storyboard.instantiateViewController(withIdentifier: "BooksReaderView") as? BooksReaderView {
+//                    if self.booksTotalData.count == self.booksReaderPdfArray.count {
+//                        
+//                        //  self.openDocument(name: self.booksReaderPdfArray[indexPath.row])
+//                        disController.bookFileName = self.booksReaderPdfArray[indexPath.row]
+//                    }
+//                    disController.isRootFrom = BookVary.books
+//                    spinnerCreation(view: self.view, isStart: false)
+//                    self.navigationController?.pushViewController(disController, animated: true)
+//                }
                 
             } else {
                 // Videos
@@ -316,4 +334,10 @@ class BooksContentTblCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+}
+extension BooksContentVC: SFSafariViewControllerDelegate
+{
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        controller.dismiss(animated: true, completion: nil)
+    }
 }

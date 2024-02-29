@@ -10,8 +10,9 @@ import Firebase
 import FirebaseDatabase
 import FirebaseFirestore
 import Toast_Swift
+import IQKeyboardManagerSwift
 
-class VolunteerRegistrationVC: UIViewController, TblCellClassDelegate {
+class VolunteerRegistrationVC: UIViewController, TblCellClassDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var nameTxt: UITextField!
     @IBOutlet weak var adressTxt: UITextField!
@@ -54,6 +55,9 @@ class VolunteerRegistrationVC: UIViewController, TblCellClassDelegate {
        // scrolContentHeight.constant = volunteerTblView.contentSize.height + self.view.frame.size.height
        // scrolView.contentSize = CGSize.init(width: scrolView.contentSize.width, height: volunteerTblView.contentSize.height + self.view.frame.size.height)
                             // }
+        hideKeyboardWhenTappedAround()
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.enabledDistanceHandlingClasses.append(VolunteerRegistrationVC.self)
     }
     
     @IBAction func backAction(_ sender: UIButton) {
@@ -70,15 +74,18 @@ class VolunteerRegistrationVC: UIViewController, TblCellClassDelegate {
         }
     }
     func submitRegistration() {
+        spinnerCreation(view: self.view, isStart: true)
         let ref = Database.database().reference()
         print(ref)
         ref.child("volunteer_registration").childByAutoId().setValue(["address": adressTxt.text!, "mail_id": emailtxt.text!, "name": nameTxt.text!, "phone": mobileNumberTxt.text!, "time_to_communicate": contactTxt.text!, "comment": commentsTxt.text ?? "", "submitted_time": "", "time_to_contribute": timeContributeStr!, "way_of_contribution": contrinuteStr!, "work": "", "days": ""]) {
             (error:Error?, ref:DatabaseReference) in
             if let error = error {
+                spinnerCreation(view: self.view, isStart: false)
                 print("Error:\(error)")
                 //error
             } else {
                 //do stuff
+                spinnerCreation(view: self.view, isStart: false)
                 self.isChecked = false
                 self.view.makeToast("Registration Done Successfully", duration: 3.0, position: .center)
             }
@@ -130,6 +137,10 @@ class VolunteerRegistrationVC: UIViewController, TblCellClassDelegate {
         self.timeContributeStr = cell.lblAnswer2.text!
         selectedIndex = cellIndexPath.row
         self.volunteerTblView1.reloadData()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
     }
 
 }
